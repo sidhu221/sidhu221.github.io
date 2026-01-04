@@ -1,10 +1,381 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-  <title>Phantom Racing</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Phantom Racing - Home</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: #0a0a0a;
+            color: #fff;
+            line-height: 1.6;
+        }
+
+        nav {
+            background: rgba(0, 0, 0, 0.95);
+            padding: 1rem 2rem;
+            position: fixed;
+            width: 100%;
+            top: 0;
+            z-index: 1000;
+            border-bottom: 2px solid #ff0040;
+        }
+
+        nav ul {
+            list-style: none;
+            display: flex;
+            justify-content: center;
+            gap: 3rem;
+            align-items: center;
+        }
+
+        nav a {
+            color: #fff;
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 1.1rem;
+            transition: color 0.3s;
+        }
+
+        nav a:hover {
+            color: #ff0040;
+        }
+
+        .logo {
+            font-size: 1.5rem;
+            font-weight: bold;
+            background: linear-gradient(45deg, #ff0040, #ff6b9d);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .page {
+            display: none;
+            padding: 6rem 2rem 2rem;
+            min-height: 100vh;
+        }
+
+        .page.active {
+            display: block;
+        }
+
+        .hero {
+            text-align: center;
+            padding: 4rem 2rem;
+            background: linear-gradient(135deg, #1a1a1a 0%, #0a0a0a 100%);
+            border-radius: 10px;
+            margin-bottom: 3rem;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: radial-gradient(circle, rgba(255, 0, 64, 0.1) 0%, transparent 70%);
+            animation: pulse 4s ease-in-out infinite;
+        }
+
+        @keyframes pulse {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.1); }
+        }
+
+        .hero-content {
+            position: relative;
+            z-index: 1;
+        }
+
+        h1 {
+            font-size: 3.5rem;
+            margin-bottom: 1rem;
+            background: linear-gradient(45deg, #ff0040, #ff6b9d);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        h2 {
+            font-size: 2.5rem;
+            margin-bottom: 1.5rem;
+            color: #ff0040;
+        }
+
+        .content {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .stats {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 2rem;
+            margin: 3rem 0;
+        }
+
+        .stat-card {
+            background: linear-gradient(135deg, #1a1a1a 0%, #0f0f0f 100%);
+            padding: 2rem;
+            border-radius: 10px;
+            border: 1px solid #ff0040;
+            text-align: center;
+            transition: transform 0.3s;
+        }
+
+        .stat-card:hover {
+            transform: translateY(-5px);
+        }
+
+        .stat-number {
+            font-size: 3rem;
+            font-weight: bold;
+            color: #ff0040;
+        }
+
+        .stat-label {
+            font-size: 1.1rem;
+            color: #aaa;
+            margin-top: 0.5rem;
+        }
+
+        .team-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 2rem;
+            margin-top: 2rem;
+        }
+
+        .team-member {
+            background: #1a1a1a;
+            padding: 2rem;
+            border-radius: 10px;
+            border: 1px solid #333;
+            transition: border-color 0.3s, transform 0.3s;
+        }
+
+        .team-member:hover {
+            border-color: #ff0040;
+            transform: translateY(-5px);
+        }
+
+        .member-name {
+            font-size: 1.5rem;
+            font-weight: bold;
+            color: #ff0040;
+            margin-bottom: 0.5rem;
+        }
+
+        .member-role {
+            color: #aaa;
+            margin-bottom: 1rem;
+        }
+
+        .sponsor-section {
+            background: #1a1a1a;
+            padding: 3rem;
+            border-radius: 10px;
+            margin-bottom: 2rem;
+        }
+
+        .contact-info {
+            background: #0f0f0f;
+            padding: 2rem;
+            border-radius: 10px;
+            border: 1px solid #ff0040;
+            margin-top: 2rem;
+        }
+
+        .contact-info h3 {
+            color: #ff0040;
+            margin-bottom: 1rem;
+        }
+
+        .contact-item {
+            margin: 1rem 0;
+            padding: 0.5rem 0;
+        }
+
+        .contact-item strong {
+            color: #ff6b9d;
+        }
+
+        .cta-button {
+            display: inline-block;
+            background: linear-gradient(45deg, #ff0040, #ff6b9d);
+            color: #fff;
+            padding: 1rem 2rem;
+            border-radius: 5px;
+            text-decoration: none;
+            font-weight: bold;
+            margin-top: 1rem;
+            transition: transform 0.3s;
+        }
+
+        .cta-button:hover {
+            transform: scale(1.05);
+        }
+
+        @media (max-width: 768px) {
+            h1 { font-size: 2.5rem; }
+            h2 { font-size: 2rem; }
+            nav ul { gap: 1.5rem; }
+        }
+    </style>
 </head>
 <body>
-  <h1>Welcome to Phantom Racing</h1>
-  <p>STEM Racing Team Website</p>
+    <nav>
+        <ul>
+            <li class="logo">PHANTOM RACING</li>
+            <li><a href="#" data-page="home">Home</a></li>
+            <li><a href="#" data-page="team">Team</a></li>
+            <li><a href="#" data-page="sponsors">Sponsors</a></li>
+        </ul>
+    </nav>
+
+    <div id="home" class="page active">
+        <div class="hero">
+            <div class="hero-content">
+                <h1>PHANTOM RACING</h1>
+                <p style="font-size: 1.3rem; color: #aaa;">Speed. Precision. Victory.</p>
+            </div>
+        </div>
+        
+        <div class="content">
+            <div class="stats">
+                <div class="stat-card">
+                    <div class="stat-number">15</div>
+                    <div class="stat-label">Race Wins</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-number">3</div>
+                    <div class="stat-label">Championships</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-number">250+</div>
+                    <div class="stat-label">Race Hours</div>
+                </div>
+            </div>
+
+            <div style="text-align: center; margin: 4rem 0;">
+                <h2>About Phantom Racing</h2>
+                <p style="font-size: 1.1rem; color: #ccc; max-width: 800px; margin: 1rem auto;">
+                    We are a dedicated racing team committed to excellence on and off the track. With cutting-edge technology, 
+                    skilled drivers, and a passionate crew, Phantom Racing pushes the boundaries of speed and performance.
+                </p>
+            </div>
+        </div>
+    </div>
+
+    <div id="team" class="page">
+        <div class="content">
+            <h2>Our Team</h2>
+            <p style="color: #aaa; margin-bottom: 2rem;">Meet the talented individuals who make Phantom Racing a force to be reckoned with.</p>
+            
+            <div class="team-grid">
+                <div class="team-member">
+                    <div class="member-name">Alex Martinez</div>
+                    <div class="member-role">Lead Driver</div>
+                    <p style="color: #ccc;">With over 10 years of racing experience, Alex brings speed and precision to every race.</p>
+                </div>
+                
+                <div class="team-member">
+                    <div class="member-name">Sarah Chen</div>
+                    <div class="member-role">Team Principal</div>
+                    <p style="color: #ccc;">Strategic mastermind behind our race operations and team management.</p>
+                </div>
+                
+                <div class="team-member">
+                    <div class="member-name">Marcus Johnson</div>
+                    <div class="member-role">Chief Engineer</div>
+                    <p style="color: #ccc;">Ensures our vehicles are tuned to perfection for maximum performance.</p>
+                </div>
+                
+                <div class="team-member">
+                    <div class="member-name">Emma Rodriguez</div>
+                    <div class="member-role">Reserve Driver</div>
+                    <p style="color: #ccc;">Rising star ready to take on any challenge on the track.</p>
+                </div>
+                
+                <div class="team-member">
+                    <div class="member-name">David Park</div>
+                    <div class="member-role">Crew Chief</div>
+                    <p style="color: #ccc;">Coordinates our pit crew for lightning-fast stops and repairs.</p>
+                </div>
+                
+                <div class="team-member">
+                    <div class="member-name">Lisa Thompson</div>
+                    <div class="member-role">Data Analyst</div>
+                    <p style="color: #ccc;">Uses advanced telemetry to optimize our race strategies.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div id="sponsors" class="page">
+        <div class="content">
+            <h2>Sponsors & Partners</h2>
+            
+            <div class="sponsor-section">
+                <h3 style="color: #ff6b9d; margin-bottom: 1rem;">Become a Sponsor</h3>
+                <p style="color: #ccc; margin-bottom: 1rem;">
+                    Join Phantom Racing and be part of our journey to victory. We offer various sponsorship packages 
+                    that provide excellent exposure and partnership opportunities.
+                </p>
+                <p style="color: #ccc;">
+                    Our sponsors benefit from track-side branding, social media promotion, hospitality experiences, 
+                    and association with a winning team dedicated to excellence.
+                </p>
+            </div>
+
+            <div class="contact-info">
+                <h3>Contact Information</h3>
+                <div class="contact-item">
+                    <strong>Email:</strong> info@phantomracing.com
+                </div>
+                <div class="contact-item">
+                    <strong>Phone:</strong> +1 (555) 123-4567
+                </div>
+                <div class="contact-item">
+                    <strong>Address:</strong> 123 Speedway Drive, Racing City, RC 12345
+                </div>
+                <div class="contact-item">
+                    <strong>Social Media:</strong><br>
+                    Instagram: @phantomracing<br>
+                    Twitter: @phantomracing<br>
+                    Facebook: /phantomracing
+                </div>
+                <a href="mailto:info@phantomracing.com" class="cta-button">Get in Touch</a>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        const links = document.querySelectorAll('nav a[data-page]');
+        const pages = document.querySelectorAll('.page');
+
+        links.forEach(link => {
+            link.addEventListener('click', (e) => {
+                e.preventDefault();
+                const targetPage = link.getAttribute('data-page');
+                
+                pages.forEach(page => page.classList.remove('active'));
+                document.getElementById(targetPage).classList.add('active');
+                
+                window.scrollTo({ top: 0, behavior: 'smooth' });
+            });
+        });
+    </script>
 </body>
 </html>

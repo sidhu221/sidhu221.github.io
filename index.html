@@ -32,8 +32,9 @@
             list-style: none;
             display: flex;
             justify-content: center;
-            gap: 3rem;
+            gap: 2rem;
             align-items: center;
+            flex-wrap: wrap;
         }
 
         nav a {
@@ -98,6 +99,15 @@
             z-index: 1;
         }
 
+        .car-image {
+            max-width: 800px;
+            width: 100%;
+            height: auto;
+            margin: 2rem auto;
+            border-radius: 10px;
+            box-shadow: 0 10px 40px rgba(255, 0, 64, 0.3);
+        }
+
         h1 {
             font-size: 3.5rem;
             margin-bottom: 1rem;
@@ -150,6 +160,24 @@
             margin-top: 0.5rem;
         }
 
+        .next-event {
+            background: linear-gradient(135deg, #ff0040 0%, #ff6b9d 100%);
+            padding: 2rem;
+            border-radius: 10px;
+            margin: 2rem 0;
+            text-align: center;
+        }
+
+        .next-event h3 {
+            font-size: 1.8rem;
+            margin-bottom: 1rem;
+        }
+
+        .event-details {
+            font-size: 1.2rem;
+            margin: 0.5rem 0;
+        }
+
         .team-grid {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
@@ -163,11 +191,21 @@
             border-radius: 10px;
             border: 1px solid #333;
             transition: border-color 0.3s, transform 0.3s;
+            text-align: center;
         }
 
         .team-member:hover {
             border-color: #ff0040;
             transform: translateY(-5px);
+        }
+
+        .member-photo {
+            width: 150px;
+            height: 150px;
+            border-radius: 50%;
+            margin: 0 auto 1rem;
+            border: 3px solid #ff0040;
+            object-fit: cover;
         }
 
         .member-name {
@@ -180,6 +218,68 @@
         .member-role {
             color: #aaa;
             margin-bottom: 1rem;
+        }
+
+        .sponsor-tiers {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 2rem;
+            margin: 3rem 0;
+        }
+
+        .tier-card {
+            background: #1a1a1a;
+            padding: 2rem;
+            border-radius: 10px;
+            border: 2px solid;
+            text-align: center;
+            transition: transform 0.3s;
+        }
+
+        .tier-card:hover {
+            transform: translateY(-10px);
+        }
+
+        .tier-bronze { border-color: #cd7f32; }
+        .tier-silver { border-color: #c0c0c0; }
+        .tier-gold { border-color: #ffd700; }
+        .tier-platinum { border-color: #e5e4e2; }
+
+        .tier-name {
+            font-size: 1.8rem;
+            font-weight: bold;
+            margin-bottom: 1rem;
+        }
+
+        .tier-bronze .tier-name { color: #cd7f32; }
+        .tier-silver .tier-name { color: #c0c0c0; }
+        .tier-gold .tier-name { color: #ffd700; }
+        .tier-platinum .tier-name { color: #e5e4e2; }
+
+        .tier-price {
+            font-size: 2.5rem;
+            font-weight: bold;
+            color: #ff0040;
+            margin: 1rem 0;
+        }
+
+        .tier-benefits {
+            list-style: none;
+            text-align: left;
+            margin-top: 1.5rem;
+        }
+
+        .tier-benefits li {
+            padding: 0.5rem 0;
+            color: #ccc;
+            border-bottom: 1px solid #333;
+        }
+
+        .tier-benefits li:before {
+            content: "✓ ";
+            color: #ff0040;
+            font-weight: bold;
+            margin-right: 0.5rem;
         }
 
         .sponsor-section {
@@ -227,10 +327,49 @@
             transform: scale(1.05);
         }
 
+        .gallery-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 1.5rem;
+            margin-top: 2rem;
+        }
+
+        .gallery-item {
+            position: relative;
+            overflow: hidden;
+            border-radius: 10px;
+            aspect-ratio: 4/3;
+            background: #1a1a1a;
+            border: 1px solid #333;
+            transition: transform 0.3s;
+        }
+
+        .gallery-item:hover {
+            transform: scale(1.05);
+            border-color: #ff0040;
+        }
+
+        .gallery-image {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .gallery-caption {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            background: linear-gradient(transparent, rgba(0,0,0,0.9));
+            padding: 2rem 1rem 1rem;
+            color: #fff;
+            text-align: center;
+        }
+
         @media (max-width: 768px) {
             h1 { font-size: 2.5rem; }
             h2 { font-size: 2rem; }
-            nav ul { gap: 1.5rem; }
+            nav ul { gap: 1rem; }
         }
     </style>
 </head>
@@ -240,6 +379,7 @@
             <li class="logo">PHANTOM RACING</li>
             <li><a href="#" data-page="home">Home</a></li>
             <li><a href="#" data-page="team">Team</a></li>
+            <li><a href="#" data-page="gallery">Gallery</a></li>
             <li><a href="#" data-page="sponsors">Sponsors</a></li>
         </ul>
     </nav>
@@ -249,10 +389,18 @@
             <div class="hero-content">
                 <h1>PHANTOM RACING</h1>
                 <p style="font-size: 1.3rem; color: #aaa;">Speed. Precision. Victory.</p>
+                <img src="https://images.unsplash.com/photo-1568605117036-5fe5e7bab0b7?w=800&h=400&fit=crop" alt="F1 Racing Car" class="car-image">
             </div>
         </div>
         
         <div class="content">
+            <div class="next-event">
+                <h3>🏁 Next Event</h3>
+                <div class="event-details"><strong>US Nationals</strong></div>
+                <div class="event-details">📅 April 12-15, 2026</div>
+                <div class="event-details">📍 Charlotte, North Carolina, US</div>
+            </div>
+
             <div class="stats">
                 <div class="stat-card">
                     <div class="stat-number">15</div>
@@ -285,48 +433,56 @@
             
             <div class="team-grid">
                 <div class="team-member">
+                    <img src="https://images.unsplash.com/photo-1500648767791-00dcc994a43e?w=150&h=150&fit=crop" alt="Tharan Sivakumar" class="member-photo">
                     <div class="member-name">Tharan Sivakumar</div>
                     <div class="member-role">Team Principal</div>
                     <p style="color: #ccc;">Tharan is a junior at Redmond High School who is extremely passionate about Formula 1. Ever since he was a young child, he always loved watching Formula 1 and he also likes engineering a lot, so Tharan founded Phantom Racing to compete at the highest level of motorsport.</p>
                 </div>
                 
                 <div class="team-member">
+                    <img src="https://images.unsplash.com/photo-1494790108377-be9c29b29330?w=150&h=150&fit=crop" alt="Sidhanth Chakravarthy" class="member-photo">
                     <div class="member-name">Sidhanth Chakravarthy</div>
                     <div class="member-role">Portfolio Lead</div>
                     <p style="color: #ccc;">Sidhanth is a junior at Redmond High School and is the Portfolio Lead for Phantom Racing. He oversees the branding, documentation, and presentation of Phantom Racing to the judges of STEM Racing. He has a background in VEX robotics as the engineer notebooker where they won many awards.</p>
                 </div>
                 
                 <div class="team-member">
+                    <img src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=150&h=150&fit=crop" alt="Marcus Johnson" class="member-photo">
                     <div class="member-name">Sharav Dhar</div>
                     <div class="member-role">Chief Engineer</div>
                     <p style="color: #ccc;">Sharav is a junior at Redmond High School who is passionate about engineering and motorsports. He has a keen interest in aerodynamics and vehicle design, which he has pursued through various projects and competitions. Sharav is excited to contribute his skills and knowledge to the Phantom Racing team as they compete in the STEM Racing competition.</p>
                 </div>
                 
                 <div class="team-member">
+                    <img src="https://images.unsplash.com/photo-1438761681033-6461ffad8d80?w=150&h=150&fit=crop" alt="Emma Rodriguez" class="member-photo">
                     <div class="member-name">Rishab Nidadavolu</div>
                     <div class="member-role">Lead Design Engineer</div>
                     <p style="color: #ccc;">Rising star ready to take on any challenge on the track.</p>
                 </div>
                 
                 <div class="team-member">
+                    <img src="https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=150&h=150&fit=crop" alt="David Park" class="member-photo">
                     <div class="member-name">Jash Vohra</div>
                     <div class="member-role">Lead Finance Manager</div>
                     <p style="color: #ccc;">Jash is a junior at Redmond High School who is extremely excited to be a part of Phantom Racing. He has a strong passion for motorsports and engineering, and he enjoys working on various projects related to cars and racing. Jash is looking forward to contributing his skills and knowledge to help the team succeed in the STEM Racing competition. Jash also runs his own non-profit organization called LUMA Coding, hosting several hackathons with huge cash prizes of $1000+ as well as teaching thousands of children each year the skills they need to excel in computer science. This showcases his leadership skills as well as his extremely diligent work ethic.</p>
                 </div>
                 
                 <div class="team-member">
+                    <img src="https://images.unsplash.com/photo-1489424731084-a5d8b219a5bb?w=150&h=150&fit=crop" alt="Lisa Thompson" class="member-photo">
                     <div class="member-name">Guna Sen</div>
                     <div class="member-role">Chief of Marketing</div>
                     <p style="color: #ccc;">Uses advanced telemetry to optimize our race strategies.</p>
                 </div>
-                
+
                 <div class="team-member">
+                    <img src="https://images.unsplash.com/photo-1489424731084-a5d8b219a5bb?w=150&h=150&fit=crop" alt="Lisa Thompson" class="member-photo">
                     <div class="member-name">Kandarp Vadadoriya</div>
                     <div class="member-role">Marketing Coordinator</div>
                     <p style="color: #ccc;">Kandarp is a junior at Redmond High School who is thrilled to be part of Phantom Racing. He has a deep passion for motorsports and engineering, and enjoys working on various projects related to cars and racing. Kandarp is eager to contribute his skills and knowledge to help the team excel in the F1 in Schools competition.</p>
                 </div>
 
                 <div class="team-member">
+                    <img src="https://images.unsplash.com/photo-1489424731084-a5d8b219a5bb?w=150&h=150&fit=crop" alt="Lisa Thompson" class="member-photo">
                     <div class="member-name">Arnav Jha</div>
                     <div class="member-role">Social Media Lead</div>
                     <p style="color: #ccc;">Arnav is a junior at Redmond High School passionate about engineering and motorsports. From a young age, he has enjoyed programming and robotics through competitions like USACO and VEX Robotics. He loves designing and building high performance vehicles and is excited to contribute his skills to the Phantom Racing team. Outside of Formula 1, Arnav competitively swims for Redmond High School and a club team, earning multiple awards and reaching the district level in Lake Washington Competitive Swimming. He also serves on the board of the nonprofit LUMA Coding with Jash, hosting major hackathons and teaching thousands of children computer science. His experiences highlight strong leadership and a diligent work ethic.</p>
@@ -335,20 +491,100 @@
         </div>
     </div>
 
+    <div id="gallery" class="page">
+        <div class="content">
+            <h2>Team Gallery</h2>
+            <p style="color: #aaa; margin-bottom: 2rem;">Behind the scenes and on the track - moments that define Phantom Racing.</p>
+            
+            <div class="gallery-grid">
+                <div class="gallery-item">
+                    <img src="https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=400&h=300&fit=crop" alt="Pit Stop" class="gallery-image">
+                    <div class="gallery-caption">Lightning Fast Pit Stop</div>
+                </div>
+                
+                <div class="gallery-item">
+                    <img src="https://images.unsplash.com/photo-1566140967404-b8b3932483f5?w=400&h=300&fit=crop" alt="Victory Celebration" class="gallery-image">
+                    <div class="gallery-caption">Victory at Monaco</div>
+                </div>
+                
+                <div class="gallery-item">
+                    <img src="https://images.unsplash.com/photo-1580048915913-4f8f5cb481c4?w=400&h=300&fit=crop" alt="Team Strategy" class="gallery-image">
+                    <div class="gallery-caption">Strategy Session</div>
+                </div>
+                
+                <div class="gallery-item">
+                    <img src="https://images.unsplash.com/photo-1574016252888-e5df882fc7c2?w=400&h=300&fit=crop" alt="Car Close-up" class="gallery-image">
+                    <div class="gallery-caption">Engineering Excellence</div>
+                </div>
+                
+                <div class="gallery-item">
+                    <img src="https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=400&h=300&fit=crop" alt="Team Photo" class="gallery-image">
+                    <div class="gallery-caption">The Phantom Racing Family</div>
+                </div>
+                
+                <div class="gallery-item">
+                    <img src="https://images.unsplash.com/photo-1566140967404-b8b3932483f5?w=400&h=300&fit=crop" alt="Race Action" class="gallery-image">
+                    <div class="gallery-caption">Blazing Through Turns</div>
+                </div>
+            </div>
+        </div>
+    </div>
+
     <div id="sponsors" class="page">
         <div class="content">
-            <h2>Sponsors & Partners</h2>
+            <h2>Sponsorship Opportunities</h2>
+            <p style="color: #aaa; margin-bottom: 2rem;">Partner with Phantom Racing and showcase your brand on the world stage.</p>
             
-            <div class="sponsor-section">
-                <h3 style="color: #ff6b9d; margin-bottom: 1rem;">Become a Sponsor</h3>
-                <p style="color: #ccc; margin-bottom: 1rem;">
-                    Join Phantom Racing and be part of our journey to victory. We offer various sponsorship packages 
-                    that provide excellent exposure and partnership opportunities.
-                </p>
-                <p style="color: #ccc;">
-                    Our sponsors benefit from track-side branding, social media promotion, hospitality experiences, 
-                    and association with a winning team dedicated to excellence.
-                </p>
+            <div class="sponsor-tiers">
+                <div class="tier-card tier-bronze">
+                    <div class="tier-name">BRONZE</div>
+                    <div class="tier-price">$250</div>
+                    <ul class="tier-benefits">
+                        <li>Logo on team website</li>
+                        <li>Social media mentions</li>
+                        <li>Team newsletter feature</li>
+                        <li>Certificate of sponsorship</li>
+                    </ul>
+                </div>
+                
+                <div class="tier-card tier-silver">
+                    <div class="tier-name">SILVER</div>
+                    <div class="tier-price">$500</div>
+                    <ul class="tier-benefits">
+                        <li>All Bronze benefits</li>
+                        <li>Logo on team apparel</li>
+                        <li>Race day updates</li>
+                        <li>2 guest passes per event</li>
+                        <li>Pit tour access</li>
+                    </ul>
+                </div>
+                
+                <div class="tier-card tier-gold">
+                    <div class="tier-name">GOLD</div>
+                    <div class="tier-price">$1,000</div>
+                    <ul class="tier-benefits">
+                        <li>All Silver benefits</li>
+                        <li>Logo on race car</li>
+                        <li>VIP hospitality suite</li>
+                        <li>4 guest passes per event</li>
+                        <li>Meet & greet with drivers</li>
+                        <li>Exclusive photo opportunities</li>
+                    </ul>
+                </div>
+                
+                <div class="tier-card tier-platinum">
+                    <div class="tier-name">PLATINUM</div>
+                    <div class="tier-price">$2,000</div>
+                    <ul class="tier-benefits">
+                        <li>All Gold benefits</li>
+                        <li>Primary car sponsorship</li>
+                        <li>Premium hospitality suite</li>
+                        <li>8 guest passes per event</li>
+                        <li>Team strategy briefings</li>
+                        <li>Exclusive sponsor events</li>
+                        <li>Custom activation opportunities</li>
+                    </ul>
+                </div>
             </div>
 
             <div class="contact-info">
@@ -365,10 +601,10 @@
                 <div class="contact-item">
                     <strong>Social Media:</strong><br>
                     Instagram: @phantomracing<br>
-                    Twitter: @phantomracing<br>
-                    Facebook: /phantomracing
+                    Youtube: @phantomracing<br>
+                    TikTok: /phantomracing
                 </div>
-                <a href="mailto:phantomracingrhs@outlook.com" class="cta-button">Get in Touch</a>
+                <a href="mailto:phantomracingrhs@outlook.com" class="cta-button">Become a Sponsor</a>
             </div>
         </div>
     </div>

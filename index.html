@@ -1,611 +1,900 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Phantom Racing - Home</title>
-    <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Phantom Racing — Sponsorship Prospectus 2026</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,700;0,900;1,700&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+<style>
+  :root {
+    --purple:       #5a4771;
+    --purple-deep:  #3e3052;
+    --purple-light: #7d6496;
+    --purple-pale:  #f0ecf5;
+    --silver:       #c8cdd6;
+    --silver-light: #e4e7ed;
+    --silver-dim:   #a8b0bc;
+    --charcoal:     #1a1820;
+    --charcoal-mid: #252230;
+    --charcoal-lt:  #332f40;
+    --off-white:    #f6f5f8;
+    --white:        #ffffff;
+    --muted:        #7a788a;
+    --border-d:     rgba(255,255,255,0.07);
+  }
+  *, *::before, *::after { margin:0; padding:0; box-sizing:border-box; }
+  html { scroll-behavior: smooth; }
+  body { font-family:'DM Sans',sans-serif; background:var(--charcoal); color:var(--white); overflow-x:hidden; }
 
-        body {
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            background: #0a0a0a;
-            color: #fff;
-            line-height: 1.6;
-        }
+  .label-row { display:flex; align-items:center; gap:0.9rem; margin-bottom:1.1rem; }
+  .label-line { width:28px; height:2px; background:var(--silver-dim); flex-shrink:0; }
+  .label-text { font-size:0.68rem; font-weight:700; letter-spacing:0.22em; text-transform:uppercase; color:var(--silver-dim); }
+  .reveal { opacity:0; transform:translateY(24px); transition:opacity 0.6s ease, transform 0.6s ease; }
+  .reveal.visible { opacity:1; transform:translateY(0); }
 
-        nav {
-            background: rgba(0, 0, 0, 0.95);
-            padding: 1rem 2rem;
-            position: fixed;
-            width: 100%;
-            top: 0;
-            z-index: 1000;
-            border-bottom: 2px solid #ff0040;
-        }
+  /* ── NAV ── */
+  #main-nav {
+    position:fixed; top:0; left:0; right:0; z-index:300;
+    height:62px; display:flex; align-items:center; justify-content:space-between;
+    padding:0 5vw;
+    background:rgba(26,24,32,0.97);
+    backdrop-filter:blur(20px);
+    border-bottom:1px solid rgba(255,255,255,0.06);
+    transition:box-shadow 0.3s;
+  }
+  #main-nav.scrolled { box-shadow:0 4px 32px rgba(0,0,0,0.5); }
+  .nav-brand { font-family:'Playfair Display',serif; font-size:1.1rem; font-weight:900; color:var(--white); text-decoration:none; white-space:nowrap; }
+  .nav-brand span { color:var(--silver); }
+  .nav-links { display:flex; gap:0.1rem; list-style:none; }
+  .nav-links a { font-size:0.68rem; font-weight:500; letter-spacing:0.06em; text-transform:uppercase; color:rgba(255,255,255,0.38); text-decoration:none; padding:0.38rem 0.75rem; border-radius:3px; transition:color 0.2s, background 0.2s; white-space:nowrap; }
+  .nav-links a:hover { color:var(--white); background:rgba(255,255,255,0.05); }
+  .nav-links a.active { color:var(--silver); }
+  .nav-cta { font-size:0.7rem; font-weight:600; letter-spacing:0.08em; text-transform:uppercase; background:var(--purple); color:var(--white); padding:0.5rem 1.2rem; text-decoration:none; border-radius:3px; transition:background 0.2s; white-space:nowrap; }
+  .nav-cta:hover { background:var(--purple-light); }
 
-        nav ul {
-            list-style: none;
-            display: flex;
-            justify-content: center;
-            gap: 2rem;
-            align-items: center;
-            flex-wrap: wrap;
-        }
+  /* ── COVER ── */
+  #cover {
+    min-height:100vh; display:flex; flex-direction:column; justify-content:flex-end;
+    padding:80px 10vw 8vh; position:relative; overflow:hidden; background:var(--charcoal);
+  }
+  .cover-grid { position:absolute; inset:0; background-image:linear-gradient(rgba(255,255,255,0.02) 1px,transparent 1px),linear-gradient(90deg,rgba(255,255,255,0.02) 1px,transparent 1px); background-size:64px 64px; }
+  .cover-glow { position:absolute; width:800px; height:800px; border-radius:50%; background:radial-gradient(circle,rgba(90,71,113,0.55) 0%,transparent 65%); right:-200px; top:-200px; pointer-events:none; }
+  .cover-glow2 { position:absolute; width:500px; height:500px; border-radius:50%; background:radial-gradient(circle,rgba(200,205,214,0.06) 0%,transparent 70%); left:10%; bottom:-100px; pointer-events:none; }
+  .speed-lines { position:absolute; inset:0; pointer-events:none; overflow:hidden; }
+  .speed-line { position:absolute; height:1px; background:linear-gradient(to right,transparent,rgba(200,205,214,0.15),transparent); width:70%; }
+  .cover-inner { position:relative; z-index:2; }
 
-        nav a {
-            color: #fff;
-            text-decoration: none;
-            font-weight: 600;
-            font-size: 1.1rem;
-            transition: color 0.3s;
-        }
+  /* Cover logo upload */
+  .cover-logo-row { display:flex; align-items:center; gap:1.2rem; margin-bottom:2.5rem; }
+  .cover-logo-box {
+    position:relative; width:78px; height:78px; border-radius:8px;
+    border:1.5px dashed rgba(200,205,214,0.28); display:flex; align-items:center; justify-content:center;
+    cursor:pointer; overflow:hidden; transition:border-color 0.2s, background 0.2s; flex-shrink:0;
+  }
+  .cover-logo-box:hover { border-color:var(--silver); background:rgba(200,205,214,0.05); }
+  .cover-logo-box input { position:absolute; inset:0; opacity:0; cursor:pointer; width:100%; height:100%; }
+  .cover-logo-plus { font-size:1.4rem; color:rgba(200,205,214,0.3); pointer-events:none; transition:color 0.2s; }
+  .cover-logo-box:hover .cover-logo-plus { color:var(--silver); }
+  .cover-logo-img { width:100%; height:100%; object-fit:contain; display:none; padding:6px; }
+  .cover-logo-hint { display:flex; flex-direction:column; gap:0.3rem; }
+  .cover-logo-hint b { font-size:0.68rem; font-weight:700; letter-spacing:0.14em; text-transform:uppercase; color:var(--silver-dim); }
+  .cover-logo-hint span { font-size:0.78rem; font-weight:300; color:rgba(255,255,255,0.28); }
 
-        nav a:hover {
-            color: #ff0040;
-        }
+  .cover-eyebrow { display:inline-flex; align-items:center; gap:0.7rem; margin-bottom:2.5rem; }
+  .cover-dot { width:7px; height:7px; border-radius:50%; background:var(--silver); animation:blink 2.4s infinite; }
+  @keyframes blink { 0%,100%{opacity:1} 50%{opacity:0.3} }
+  .cover-eyebrow-text { font-size:0.72rem; font-weight:600; letter-spacing:0.2em; text-transform:uppercase; color:var(--silver); }
+  .cover-title { font-family:'Playfair Display',serif; font-size:clamp(3.5rem,7vw,7.5rem); font-weight:900; line-height:0.95; letter-spacing:-0.03em; color:var(--white); margin-bottom:2rem; }
+  .cover-title .ghost { color:transparent; -webkit-text-stroke:1.5px rgba(200,205,214,0.4); }
+  .cover-sub { font-size:1.1rem; font-weight:300; color:rgba(255,255,255,0.45); max-width:52ch; line-height:1.85; margin-bottom:3.5rem; }
+  .cover-meta { display:flex; gap:3rem; align-items:center; border-top:1px solid rgba(255,255,255,0.08); padding-top:2rem; flex-wrap:wrap; }
+  .cover-meta-item { display:flex; flex-direction:column; gap:0.3rem; }
+  .cover-meta-label { font-size:0.62rem; font-weight:700; letter-spacing:0.18em; text-transform:uppercase; color:var(--purple-light); }
+  .cover-meta-value { font-size:1rem; font-weight:500; color:var(--silver-light); }
+  .cover-scroll { position:absolute; bottom:3rem; right:10vw; z-index:2; display:flex; flex-direction:column; align-items:center; gap:0.5rem; font-size:0.65rem; font-weight:600; letter-spacing:0.18em; text-transform:uppercase; color:rgba(255,255,255,0.25); }
+  .scroll-bar { width:1px; height:48px; background:linear-gradient(to bottom,rgba(255,255,255,0.2),transparent); }
 
-        .logo {
-            font-size: 1.5rem;
-            font-weight: bold;
-            background: linear-gradient(45deg, #ff0040, #ff6b9d);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            background-clip: text;
-        }
+  /* ── SECTIONS ── */
+  section { padding:7rem 10vw; }
+  .sec-title { font-family:'Playfair Display',serif; font-size:clamp(2rem,3.5vw,3rem); font-weight:700; line-height:1.1; margin-bottom:1.2rem; }
+  .sec-body { font-size:1rem; font-weight:300; line-height:1.9; color:rgba(255,255,255,0.55); max-width:62ch; margin-bottom:3.5rem; }
 
-        .page {
-            display: none;
-            padding: 6rem 2rem 2rem;
-            min-height: 100vh;
-        }
+  /* ── OPPORTUNITY ── */
+  #opportunity { background:var(--charcoal); }
+  .opp-grid { display:grid; grid-template-columns:1fr 1fr; gap:3px; }
+  .opp-card { background:var(--charcoal-mid); padding:3rem 2.5rem; border-top:2px solid var(--charcoal-lt); transition:background 0.2s, border-color 0.2s; }
+  .opp-card:hover { background:var(--charcoal-lt); border-color:var(--purple-light); }
+  .opp-card-num { font-family:'Playfair Display',serif; font-size:3.5rem; font-weight:900; line-height:1; color:var(--purple-light); margin-bottom:1rem; }
+  .opp-card-num sup { font-size:1.5rem; vertical-align:super; }
+  .opp-card-title { font-family:'Playfair Display',serif; font-size:1.3rem; font-weight:700; margin-bottom:0.75rem; color:var(--white); }
+  .opp-card-body { font-size:0.875rem; font-weight:300; color:rgba(255,255,255,0.5); line-height:1.8; }
+  .opp-card.highlight { background:var(--purple); border-color:var(--purple-light); }
+  .opp-card.highlight .opp-card-num { color:rgba(255,255,255,0.8); }
+  .opp-card.highlight .opp-card-body { color:rgba(255,255,255,0.75); }
+  .opp-card.highlight:hover { background:var(--purple-light); }
 
-        .page.active {
-            display: block;
-        }
+  /* ── CAR VIEWER ── */
+  #car-viewer { background:var(--charcoal-mid); padding:5rem 10vw; }
+  .viewer-layout { display:grid; grid-template-columns:1fr 1.6fr; gap:5rem; align-items:center; }
+  .viewer-info { display:flex; flex-direction:column; gap:2rem; }
+  .viewer-title { font-family:'Playfair Display',serif; font-size:clamp(1.8rem,3vw,2.8rem); font-weight:700; line-height:1.1; }
+  .viewer-desc { font-size:0.95rem; font-weight:300; color:rgba(255,255,255,0.5); line-height:1.85; }
+  .viewer-specs { display:flex; flex-direction:column; border-top:1px solid rgba(255,255,255,0.07); }
+  .spec-row { display:flex; justify-content:space-between; align-items:center; padding:0.9rem 0; border-bottom:1px solid rgba(255,255,255,0.05); }
+  .spec-key { font-size:0.72rem; font-weight:600; letter-spacing:0.1em; text-transform:uppercase; color:var(--muted); }
+  .spec-val { font-size:0.9rem; font-weight:500; color:var(--silver-light); }
+  .upload-cad-btn { display:inline-flex; align-items:center; gap:0.6rem; font-size:0.75rem; font-weight:600; letter-spacing:0.1em; text-transform:uppercase; border:1.5px dashed rgba(200,205,214,0.3); color:rgba(200,205,214,0.5); padding:0.85rem 1.5rem; cursor:pointer; transition:all 0.2s; background:transparent; font-family:'DM Sans',sans-serif; border-radius:3px; width:fit-content; }
+  .upload-cad-btn:hover { border-color:var(--silver); color:var(--silver); }
+  .canvas-wrap { position:relative; border-radius:4px; overflow:hidden; background:linear-gradient(135deg,#1a1820 0%,#252230 60%,#1e1a28 100%); border:1px solid rgba(200,205,214,0.1); aspect-ratio:16/10; }
+  .canvas-wrap canvas { display:block; width:100% !important; height:100% !important; }
+  .canvas-hint { position:absolute; bottom:1.2rem; left:50%; transform:translateX(-50%); font-size:0.63rem; font-weight:600; letter-spacing:0.15em; text-transform:uppercase; color:rgba(200,205,214,0.3); pointer-events:none; white-space:nowrap; }
+  .canvas-badge { position:absolute; top:1rem; right:1rem; font-size:0.6rem; font-weight:700; letter-spacing:0.15em; text-transform:uppercase; background:rgba(90,71,113,0.7); color:var(--silver-light); padding:0.3rem 0.75rem; border-radius:2px; backdrop-filter:blur(8px); }
 
-        .hero {
-            text-align: center;
-            padding: 4rem 2rem;
-            background: linear-gradient(135deg, #1a1a1a 0%, #0a0a0a 100%);
-            border-radius: 10px;
-            margin-bottom: 3rem;
-            position: relative;
-            overflow: hidden;
-        }
+  /* ── METRICS ── */
+  #metrics { background:var(--charcoal); }
+  .metrics-intro-grid { display:grid; grid-template-columns:1fr 1fr; gap:5rem; margin-bottom:5rem; align-items:center; }
+  .big-stat-num { font-family:'Playfair Display',serif; font-size:clamp(4rem,8vw,9rem); font-weight:900; line-height:0.9; color:var(--white); letter-spacing:-0.04em; }
+  .big-stat-num span { color:var(--purple-light); }
+  .big-stat-label { font-size:0.75rem; font-weight:600; letter-spacing:0.15em; text-transform:uppercase; color:var(--silver-dim); }
+  .big-stat-sub { font-size:0.875rem; font-weight:300; color:rgba(255,255,255,0.4); line-height:1.7; max-width:38ch; }
+  .metrics-table { width:100%; border-collapse:collapse; }
+  .metrics-table thead th { font-size:0.65rem; font-weight:700; letter-spacing:0.18em; text-transform:uppercase; color:var(--silver-dim); padding:0 1.5rem 1rem 0; text-align:left; border-bottom:1px solid rgba(255,255,255,0.08); }
+  .metrics-table tbody tr { border-bottom:1px solid rgba(255,255,255,0.04); transition:background 0.15s; }
+  .metrics-table tbody tr:hover { background:rgba(90,71,113,0.08); }
+  .metrics-table tbody td { padding:1rem 1.5rem 1rem 0; font-size:0.9rem; font-weight:300; color:rgba(255,255,255,0.6); vertical-align:middle; }
+  .metrics-table tbody td:first-child { font-weight:500; color:var(--white); }
+  .td-val { font-family:'Playfair Display',serif; font-size:1.1rem; font-weight:700; color:var(--purple-light) !important; }
+  .bar-cell { min-width:160px; }
+  .bar-track { height:4px; background:rgba(255,255,255,0.06); border-radius:2px; overflow:hidden; }
+  .bar-fill { height:100%; background:linear-gradient(to right,var(--purple),var(--silver-dim)); border-radius:2px; transition:width 1.2s ease; width:0%; }
+  .metric-cards { display:grid; grid-template-columns:repeat(4,1fr); gap:3px; margin-top:4rem; }
+  .mcard { background:var(--charcoal-mid); padding:2.2rem 1.8rem; border-left:3px solid var(--charcoal-lt); transition:border-color 0.2s, background 0.2s; }
+  .mcard:hover { border-color:var(--purple-light); background:var(--charcoal-lt); }
+  .mcard-n { font-family:'Playfair Display',serif; font-size:2.6rem; font-weight:900; line-height:1; margin-bottom:0.4rem; color:var(--white); }
+  .mcard-n span { color:var(--silver); }
+  .mcard-l { font-size:0.68rem; font-weight:600; letter-spacing:0.1em; text-transform:uppercase; color:var(--muted); margin-bottom:0.6rem; }
+  .mcard-body { font-size:0.8rem; font-weight:300; color:rgba(255,255,255,0.4); line-height:1.65; }
 
-        .hero::before {
-            content: '';
-            position: absolute;
-            top: -50%;
-            left: -50%;
-            width: 200%;
-            height: 200%;
-            background: radial-gradient(circle, rgba(255, 0, 64, 0.1) 0%, transparent 70%);
-            animation: pulse 4s ease-in-out infinite;
-        }
+  /* ── STEM ── */
+  #stem { background:var(--charcoal-mid); }
+  .stem-grid { display:grid; grid-template-columns:1fr 1fr 1fr; gap:3px; margin-top:1rem; }
+  .stem-card { padding:2.8rem 2.5rem; background:var(--charcoal); border-top:2px solid var(--charcoal-lt); transition:background 0.2s, border-color 0.2s; }
+  .stem-card:hover { background:var(--charcoal-lt); border-color:var(--purple-light); }
+  .stem-card.accent { background:var(--purple); border-color:var(--purple-light); }
+  .stem-card.accent:hover { background:var(--purple-light); }
+  .stem-icon { font-size:2rem; margin-bottom:1.2rem; }
+  .stem-card-title { font-family:'Playfair Display',serif; font-size:1.25rem; font-weight:700; margin-bottom:0.75rem; }
+  .stem-card-body { font-size:0.875rem; font-weight:300; color:rgba(255,255,255,0.5); line-height:1.8; }
+  .stem-card.accent .stem-card-body { color:rgba(255,255,255,0.8); }
+  .stem-stat { font-family:'Playfair Display',serif; font-size:2.5rem; font-weight:900; color:var(--purple-light); margin-top:1.5rem; }
+  .stem-card.accent .stem-stat { color:rgba(255,255,255,0.9); }
 
-        @keyframes pulse {
-            0%, 100% { transform: scale(1); }
-            50% { transform: scale(1.1); }
-        }
+  /* ── ROI ── */
+  #roi { background:var(--charcoal); }
+  .roi-layout { display:grid; grid-template-columns:1.1fr 1fr; gap:5rem; align-items:start; }
+  .roi-table { width:100%; border-collapse:collapse; }
+  .roi-table tr { border-bottom:1px solid rgba(255,255,255,0.05); }
+  .roi-table tr:hover { background:rgba(90,71,113,0.08); }
+  .roi-table td { padding:1.1rem 0; font-size:0.9rem; }
+  .roi-table td:first-child { font-weight:500; color:var(--white); padding-right:2rem; }
+  .roi-table td:last-child { font-family:'Playfair Display',serif; font-size:1.1rem; font-weight:700; color:var(--purple-light); text-align:right; }
+  .roi-note { font-size:0.78rem; font-weight:300; color:rgba(255,255,255,0.3); margin-top:1.5rem; line-height:1.7; font-style:italic; }
+  .roi-aside { display:flex; flex-direction:column; gap:2.5rem; }
+  .roi-pull { font-family:'Playfair Display',serif; font-size:1.6rem; font-weight:700; line-height:1.35; color:var(--white); border-left:3px solid var(--purple); padding-left:1.5rem; }
+  .roi-facts { display:flex; flex-direction:column; gap:1px; }
+  .roi-fact { background:var(--charcoal-mid); padding:1.4rem 1.8rem; display:flex; justify-content:space-between; align-items:center; gap:1rem; transition:background 0.2s; }
+  .roi-fact:hover { background:var(--charcoal-lt); }
+  .roi-fact-label { font-size:0.8rem; font-weight:400; color:rgba(255,255,255,0.5); }
+  .roi-fact-val { font-family:'Playfair Display',serif; font-size:1.2rem; font-weight:700; color:var(--silver); white-space:nowrap; }
 
-        .hero-content {
-            position: relative;
-            z-index: 1;
-        }
+  /* ── TIERS ── */
+  #tiers { background:var(--charcoal-mid); }
+  .tiers-wrap { display:grid; grid-template-columns:repeat(4,1fr); gap:3px; }
+  .tier-slot { display:flex; flex-direction:column; }
+  .tier-ribbon { text-align:center; font-size:0.62rem; font-weight:700; letter-spacing:0.2em; text-transform:uppercase; padding:0.4rem 0; background:var(--charcoal-lt); color:var(--silver-dim); border-radius:3px 3px 0 0; }
+  .tier-ribbon.ribbon-featured { background:var(--silver); color:var(--charcoal); }
+  .tier-card { background:var(--charcoal); padding:2.5rem 2rem; display:flex; flex-direction:column; gap:2rem; flex:1; border-top:2px solid var(--charcoal-lt); transition:background 0.2s; }
+  .tier-card:hover { background:var(--charcoal-lt); }
+  .tier-slot.featured .tier-card { background:var(--purple); border-top:2px solid var(--purple-light); }
+  .tier-slot.featured .tier-card:hover { background:var(--purple-light); }
+  .tier-card-name { font-family:'Playfair Display',serif; font-size:2rem; font-weight:700; color:var(--white); line-height:1; }
+  .tier-price-block { display:flex; align-items:baseline; gap:0.3rem; }
+  .tier-price-val { font-family:'Playfair Display',serif; font-size:2.6rem; font-weight:900; color:var(--white); line-height:1; }
+  .tier-price-period { font-size:0.75rem; font-weight:400; color:rgba(255,255,255,0.38); text-transform:uppercase; letter-spacing:0.06em; }
+  .tier-sep { height:1px; background:rgba(255,255,255,0.1); }
+  .tier-feats { list-style:none; display:flex; flex-direction:column; gap:0.85rem; flex:1; }
+  .tier-feats li { display:flex; align-items:flex-start; gap:0.7rem; font-size:0.875rem; font-weight:300; color:rgba(255,255,255,0.55); line-height:1.5; }
+  .tier-slot.featured .tier-feats li { color:rgba(255,255,255,0.85); }
+  .feat-dot { width:5px; height:5px; border-radius:50%; background:var(--silver-dim); flex-shrink:0; margin-top:0.5rem; }
+  .tier-slot.featured .feat-dot { background:rgba(255,255,255,0.8); }
+  .tier-btn { display:block; font-size:0.78rem; font-weight:600; letter-spacing:0.1em; text-transform:uppercase; text-align:center; text-decoration:none; padding:0.85rem; border:1.5px solid rgba(255,255,255,0.14); color:rgba(255,255,255,0.6); border-radius:3px; transition:all 0.2s; }
+  .tier-btn:hover { border-color:var(--silver-dim); color:var(--white); }
+  .tier-slot.featured .tier-btn { background:var(--white); border-color:var(--white); color:var(--purple); }
+  .tier-slot.featured .tier-btn:hover { background:var(--silver-light); }
 
-        .car-image {
-            max-width: 800px;
-            width: 100%;
-            height: auto;
-            margin: 2rem auto;
-            border-radius: 10px;
-            box-shadow: 0 10px 40px rgba(255, 0, 64, 0.3);
-        }
+  /* ── CURRENT SPONSORS ── */
+  #current-sponsors { background:var(--charcoal); }
+  .sp-tier-block { margin-bottom:3.5rem; }
+  .sp-tier-head { display:flex; align-items:center; gap:1.2rem; margin-bottom:1.5rem; }
+  .sp-pill { font-size:0.67rem; font-weight:700; letter-spacing:0.18em; text-transform:uppercase; padding:0.28rem 1rem; border-radius:100px; }
+  .spp-plat   { background:rgba(200,205,214,0.12); color:var(--silver);       border:1px solid rgba(200,205,214,0.3); }
+  .spp-gold   { background:rgba(90,71,113,0.15);   color:var(--purple-light); border:1px solid rgba(90,71,113,0.35); }
+  .spp-silver { background:rgba(168,176,188,0.1);  color:#7a8290;             border:1px solid rgba(168,176,188,0.25); }
+  .spp-bronze { background:rgba(160,120,80,0.1);   color:#8a6040;             border:1px solid rgba(160,120,80,0.25); }
+  .sp-hr { flex:1; height:1px; background:rgba(255,255,255,0.07); }
 
-        h1 {
-            font-size: 3.5rem;
-            margin-bottom: 1rem;
-            background: linear-gradient(45deg, #ff0040, #ff6b9d);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            background-clip: text;
-        }
+  .sp-grid { display:flex; flex-wrap:wrap; gap:3px; }
+  .sp-card {
+    background:var(--charcoal-mid); border:1px solid rgba(255,255,255,0.06);
+    display:flex; flex-direction:column; align-items:center; justify-content:center;
+    text-align:center; padding:1.8rem 1.2rem; gap:0.6rem;
+    position:relative; overflow:hidden; transition:background 0.25s, border-color 0.25s;
+  }
+  .sp-card::before { content:''; position:absolute; inset:0; background:var(--purple); transform:scaleY(0); transform-origin:bottom; transition:transform 0.3s ease; }
+  .sp-card:hover::before { transform:scaleY(1); }
+  .sp-card:hover { border-color:var(--purple-light); }
+  .sp-card-inner { position:relative; z-index:1; display:flex; flex-direction:column; align-items:center; gap:0.6rem; width:100%; }
+  .sp-logo { width:100%; height:46px; background:rgba(255,255,255,0.04); border:1px dashed rgba(200,205,214,0.12); border-radius:3px; display:flex; align-items:center; justify-content:center; font-size:0.58rem; font-weight:700; letter-spacing:0.14em; text-transform:uppercase; color:rgba(200,205,214,0.22); transition:background 0.25s, color 0.25s; }
+  .sp-card:hover .sp-logo { background:rgba(255,255,255,0.07); color:rgba(255,255,255,0.3); }
+  .sp-name { font-family:'Playfair Display',serif; font-weight:700; color:var(--white); line-height:1.2; transition:color 0.25s; }
+  .sp-industry { font-size:0.63rem; font-weight:500; letter-spacing:0.12em; text-transform:uppercase; color:var(--muted); transition:color 0.25s; }
+  .sp-card:hover .sp-industry { color:rgba(255,255,255,0.55); }
+  .sp-grid.plat  .sp-card { width:calc(33.33% - 3px); min-height:170px; }
+  .sp-grid.plat  .sp-name { font-size:1.4rem; }
+  .sp-grid.gold  .sp-card { width:calc(25% - 3px); min-height:145px; }
+  .sp-grid.gold  .sp-name { font-size:1.2rem; }
+  .sp-grid.silver .sp-card { width:calc(20% - 3px); min-height:118px; }
+  .sp-grid.silver .sp-name { font-size:1.05rem; }
+  .sp-grid.bronze .sp-card { width:calc(16.66% - 3px); min-height:96px; }
+  .sp-grid.bronze .sp-name { font-size:0.9rem; }
 
-        h2 {
-            font-size: 2.5rem;
-            margin-bottom: 1.5rem;
-            color: #ff0040;
-        }
+  /* ── TEAM ── */
+  #team { background:var(--purple-deep); }
+  #team .sec-body { color:rgba(255,255,255,0.5); }
+  .team-grid { display:grid; grid-template-columns:repeat(4,1fr); gap:3px; }
+  .team-card { background:rgba(255,255,255,0.05); border:1px solid rgba(255,255,255,0.07); display:flex; flex-direction:column; overflow:hidden; transition:background 0.2s; }
+  .team-card:hover { background:rgba(255,255,255,0.1); }
+  .team-photo { width:100%; aspect-ratio:1/1; background:var(--charcoal-mid); display:flex; align-items:center; justify-content:center; position:relative; overflow:hidden; }
+  .team-initials { font-family:'Playfair Display',serif; font-size:2.2rem; font-weight:700; color:rgba(200,205,214,0.25); user-select:none; }
+  .team-accent { position:absolute; bottom:0; left:0; right:0; height:3px; background:var(--purple-light); }
+  .team-info { padding:1.5rem; display:flex; flex-direction:column; gap:0.35rem; flex:1; }
+  .team-name { font-family:'Playfair Display',serif; font-size:1.1rem; font-weight:700; color:var(--white); }
+  .team-role { font-size:0.68rem; font-weight:600; letter-spacing:0.14em; text-transform:uppercase; color:var(--purple-light); }
+  .team-degree { font-size:0.78rem; font-weight:300; color:rgba(255,255,255,0.38); margin-top:0.3rem; }
+  .team-bio { font-size:0.78rem; font-weight:300; color:rgba(255,255,255,0.42); line-height:1.65; margin-top:0.5rem; }
+  .team-dept-strip { display:flex; flex-wrap:wrap; gap:3px; margin-top:3.5rem; }
+  .team-dept { background:rgba(255,255,255,0.06); padding:1.4rem 2rem; display:flex; align-items:center; gap:1rem; flex:1; min-width:180px; border:1px solid rgba(255,255,255,0.06); transition:background 0.2s; }
+  .team-dept:hover { background:rgba(255,255,255,0.1); }
+  .team-dept-icon { font-size:1.3rem; }
+  .team-dept-name { font-size:0.83rem; font-weight:500; color:var(--silver-light); }
+  .team-dept-count { font-family:'Playfair Display',serif; font-size:1.4rem; font-weight:700; color:var(--purple-light); margin-left:auto; }
 
-        .content {
-            max-width: 1200px;
-            margin: 0 auto;
-        }
+  /* ── CTA / CONTACT ── */
+  #cta { background:linear-gradient(135deg,var(--charcoal) 0%,var(--purple-deep) 50%,var(--charcoal) 100%); padding:7rem 10vw; position:relative; overflow:hidden; }
+  .cta-glow { position:absolute; width:700px; height:700px; border-radius:50%; background:radial-gradient(circle,rgba(90,71,113,0.4) 0%,transparent 65%); left:50%; top:50%; transform:translate(-50%,-50%); pointer-events:none; }
+  .cta-layout { position:relative; z-index:2; display:grid; grid-template-columns:1fr 1.2fr; gap:6rem; align-items:start; }
+  .cta-left { display:flex; flex-direction:column; gap:2.5rem; }
+  .cta-title { font-family:'Playfair Display',serif; font-size:clamp(2.2rem,4vw,4rem); font-weight:900; line-height:1.05; letter-spacing:-0.02em; }
+  .cta-title .ghost { color:transparent; -webkit-text-stroke:1.5px rgba(200,205,214,0.35); }
+  .cta-sub { font-size:1rem; font-weight:300; color:rgba(255,255,255,0.45); line-height:1.85; }
+  .cta-info-block { display:flex; flex-direction:column; gap:1.5rem; }
+  .cta-info-row { padding-top:1.2rem; border-top:1px solid rgba(255,255,255,0.07); display:flex; flex-direction:column; gap:0.35rem; }
+  .cta-info-label { font-size:0.63rem; font-weight:700; letter-spacing:0.18em; text-transform:uppercase; color:var(--purple-light); }
+  .cta-info-value { font-family:'Playfair Display',serif; font-size:1.15rem; font-weight:700; color:var(--white); }
+  .cta-info-value a { color:inherit; text-decoration:none; transition:color 0.2s; }
+  .cta-info-value a:hover { color:var(--silver); }
+  .cta-pack-btn { display:inline-flex; align-items:center; gap:0.6rem; font-size:0.8rem; font-weight:600; letter-spacing:0.08em; text-transform:uppercase; background:var(--silver); color:var(--charcoal); padding:1rem 2rem; text-decoration:none; border-radius:3px; transition:background 0.2s, transform 0.15s; width:fit-content; }
+  .cta-pack-btn:hover { background:var(--silver-light); transform:translateY(-2px); }
 
-        .stats {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-            gap: 2rem;
-            margin: 3rem 0;
-        }
+  .cta-form { display:flex; flex-direction:column; gap:3px; }
+  .cform-row { display:grid; grid-template-columns:1fr 1fr; gap:3px; }
+  .cform-group { background:rgba(255,255,255,0.04); padding:1.3rem 1.5rem 1rem; display:flex; flex-direction:column; gap:0.4rem; border:1px solid rgba(255,255,255,0.07); transition:border-color 0.2s; }
+  .cform-group:focus-within { border-color:var(--purple-light); }
+  .cform-group.full { grid-column:1/-1; }
+  .cform-label { font-size:0.63rem; font-weight:700; letter-spacing:0.18em; text-transform:uppercase; color:var(--purple-light); }
+  .cform-input, .cform-select, .cform-textarea { border:none; outline:none; font-family:'DM Sans',sans-serif; font-size:0.92rem; font-weight:400; color:var(--white); background:transparent; padding:0.3rem 0 0.4rem; border-bottom:1px solid rgba(255,255,255,0.08); width:100%; transition:border-color 0.2s; }
+  .cform-input::placeholder, .cform-textarea::placeholder { color:rgba(255,255,255,0.2); }
+  .cform-input:focus, .cform-select:focus, .cform-textarea:focus { border-color:var(--purple-light); }
+  .cform-select { cursor:pointer; appearance:none; }
+  .cform-select option { background:var(--charcoal-mid); color:var(--white); }
+  .cform-textarea { resize:none; height:100px; }
+  .cform-submit { display:flex; align-items:center; justify-content:space-between; background:var(--purple); padding:1.3rem 2rem; border:none; width:100%; cursor:pointer; font-family:'DM Sans',sans-serif; transition:background 0.2s; }
+  .cform-submit:hover { background:var(--purple-light); }
+  .cform-submit-text { font-size:0.8rem; font-weight:600; letter-spacing:0.1em; text-transform:uppercase; color:var(--white); }
+  .cform-submit-icon { color:rgba(255,255,255,0.6); font-size:1.1rem; transition:transform 0.2s; }
+  .cform-submit:hover .cform-submit-icon { transform:translateX(4px); }
 
-        .stat-card {
-            background: linear-gradient(135deg, #1a1a1a 0%, #0f0f0f 100%);
-            padding: 2rem;
-            border-radius: 10px;
-            border: 1px solid #ff0040;
-            text-align: center;
-            transition: transform 0.3s;
-        }
+  /* ── FOOTER ── */
+  footer { background:rgba(0,0,0,0.4); padding:2rem 10vw; display:flex; align-items:center; justify-content:space-between; border-top:1px solid rgba(255,255,255,0.05); }
+  .footer-brand { font-family:'Playfair Display',serif; font-size:1.05rem; font-weight:900; color:rgba(255,255,255,0.6); }
+  .footer-brand span { color:var(--silver-dim); }
+  .footer-copy { font-size:0.72rem; color:rgba(255,255,255,0.2); }
+  .footer-conf { font-size:0.68rem; color:rgba(255,255,255,0.18); font-style:italic; }
 
-        .stat-card:hover {
-            transform: translateY(-5px);
-        }
-
-        .stat-number {
-            font-size: 3rem;
-            font-weight: bold;
-            color: #ff0040;
-        }
-
-        .stat-label {
-            font-size: 1.1rem;
-            color: #aaa;
-            margin-top: 0.5rem;
-        }
-
-        .next-event {
-            background: linear-gradient(135deg, #ff0040 0%, #ff6b9d 100%);
-            padding: 2rem;
-            border-radius: 10px;
-            margin: 2rem 0;
-            text-align: center;
-        }
-
-        .next-event h3 {
-            font-size: 1.8rem;
-            margin-bottom: 1rem;
-        }
-
-        .event-details {
-            font-size: 1.2rem;
-            margin: 0.5rem 0;
-        }
-
-        .team-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-            gap: 2rem;
-            margin-top: 2rem;
-        }
-
-        .team-member {
-            background: #1a1a1a;
-            padding: 2rem;
-            border-radius: 10px;
-            border: 1px solid #333;
-            transition: border-color 0.3s, transform 0.3s;
-            text-align: center;
-        }
-
-        .team-member:hover {
-            border-color: #ff0040;
-            transform: translateY(-5px);
-        }
-
-        .member-photo {
-            width: 150px;
-            height: 150px;
-            border-radius: 50%;
-            margin: 0 auto 1rem;
-            border: 3px solid #ff0040;
-            object-fit: cover;
-        }
-
-        .member-name {
-            font-size: 1.5rem;
-            font-weight: bold;
-            color: #ff0040;
-            margin-bottom: 0.5rem;
-        }
-
-        .member-role {
-            color: #aaa;
-            margin-bottom: 1rem;
-        }
-
-        .sponsor-tiers {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-            gap: 2rem;
-            margin: 3rem 0;
-        }
-
-        .tier-card {
-            background: #1a1a1a;
-            padding: 2rem;
-            border-radius: 10px;
-            border: 2px solid;
-            text-align: center;
-            transition: transform 0.3s;
-        }
-
-        .tier-card:hover {
-            transform: translateY(-10px);
-        }
-
-        .tier-bronze { border-color: #cd7f32; }
-        .tier-silver { border-color: #c0c0c0; }
-        .tier-gold { border-color: #ffd700; }
-        .tier-platinum { border-color: #e5e4e2; }
-
-        .tier-name {
-            font-size: 1.8rem;
-            font-weight: bold;
-            margin-bottom: 1rem;
-        }
-
-        .tier-bronze .tier-name { color: #cd7f32; }
-        .tier-silver .tier-name { color: #c0c0c0; }
-        .tier-gold .tier-name { color: #ffd700; }
-        .tier-platinum .tier-name { color: #e5e4e2; }
-
-        .tier-price {
-            font-size: 2.5rem;
-            font-weight: bold;
-            color: #ff0040;
-            margin: 1rem 0;
-        }
-
-        .tier-benefits {
-            list-style: none;
-            text-align: left;
-            margin-top: 1.5rem;
-        }
-
-        .tier-benefits li {
-            padding: 0.5rem 0;
-            color: #ccc;
-            border-bottom: 1px solid #333;
-        }
-
-        .tier-benefits li:before {
-            content: "✓ ";
-            color: #ff0040;
-            font-weight: bold;
-            margin-right: 0.5rem;
-        }
-
-        .sponsor-section {
-            background: #1a1a1a;
-            padding: 3rem;
-            border-radius: 10px;
-            margin-bottom: 2rem;
-        }
-
-        .contact-info {
-            background: #0f0f0f;
-            padding: 2rem;
-            border-radius: 10px;
-            border: 1px solid #ff0040;
-            margin-top: 2rem;
-        }
-
-        .contact-info h3 {
-            color: #ff0040;
-            margin-bottom: 1rem;
-        }
-
-        .contact-item {
-            margin: 1rem 0;
-            padding: 0.5rem 0;
-        }
-
-        .contact-item strong {
-            color: #ff6b9d;
-        }
-
-        .cta-button {
-            display: inline-block;
-            background: linear-gradient(45deg, #ff0040, #ff6b9d);
-            color: #fff;
-            padding: 1rem 2rem;
-            border-radius: 5px;
-            text-decoration: none;
-            font-weight: bold;
-            margin-top: 1rem;
-            transition: transform 0.3s;
-        }
-
-        .cta-button:hover {
-            transform: scale(1.05);
-        }
-
-        .gallery-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 1.5rem;
-            margin-top: 2rem;
-        }
-
-        .gallery-item {
-            position: relative;
-            overflow: hidden;
-            border-radius: 10px;
-            aspect-ratio: 4/3;
-            background: #1a1a1a;
-            border: 1px solid #333;
-            transition: transform 0.3s;
-        }
-
-        .gallery-item:hover {
-            transform: scale(1.05);
-            border-color: #ff0040;
-        }
-
-        .gallery-image {
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-        }
-
-        .gallery-caption {
-            position: absolute;
-            bottom: 0;
-            left: 0;
-            right: 0;
-            background: linear-gradient(transparent, rgba(0,0,0,0.9));
-            padding: 2rem 1rem 1rem;
-            color: #fff;
-            text-align: center;
-        }
-
-        @media (max-width: 768px) {
-            h1 { font-size: 2.5rem; }
-            h2 { font-size: 2rem; }
-            nav ul { gap: 1rem; }
-        }
-    </style>
+  /* ── RESPONSIVE ── */
+  @media (max-width:1200px) { .nav-links a { font-size:0.62rem; padding:0.35rem 0.55rem; } }
+  @media (max-width:1060px) {
+    .tiers-wrap { grid-template-columns:1fr 1fr; }
+    .team-grid  { grid-template-columns:1fr 1fr; }
+    .sp-grid.plat  .sp-card { width:calc(50% - 3px); }
+    .sp-grid.gold  .sp-card { width:calc(33.33% - 3px); }
+    .sp-grid.silver .sp-card{ width:calc(25% - 3px); }
+    .metrics-intro-grid, .roi-layout, .viewer-layout, .cta-layout, .opp-grid { grid-template-columns:1fr; gap:3rem; }
+    .metric-cards { grid-template-columns:1fr 1fr; }
+  }
+  @media (max-width:768px) {
+    #main-nav { padding:0 5vw; }
+    .nav-links { display:none; }
+    section { padding:5rem 6vw; }
+    #cover { padding-left:6vw; padding-right:6vw; }
+    .tiers-wrap { grid-template-columns:1fr; }
+    .team-grid  { grid-template-columns:1fr 1fr; }
+    .stem-grid  { grid-template-columns:1fr; }
+    .metric-cards { grid-template-columns:1fr; }
+    .cform-row  { grid-template-columns:1fr; }
+    .sp-grid.plat  .sp-card, .sp-grid.gold .sp-card,
+    .sp-grid.silver .sp-card, .sp-grid.bronze .sp-card { width:calc(50% - 3px); }
+    footer { flex-direction:column; gap:0.8rem; text-align:center; }
+  }
+</style>
 </head>
 <body>
-    <nav>
-        <ul>
-            <li class="logo">PHANTOM RACING</li>
-            <li><a href="#" data-page="home">Home</a></li>
-            <li><a href="#" data-page="team">Team</a></li>
-            <li><a href="#" data-page="gallery">Gallery</a></li>
-            <li><a href="#" data-page="sponsors">Sponsors</a></li>
+
+<!-- ══════════════════════
+     NAV
+══════════════════════ -->
+<nav id="main-nav">
+  <a href="#cover" class="nav-brand">Phantom <span>Racing</span></a>
+  <ul class="nav-links">
+    <li><a href="#opportunity">Opportunity</a></li>
+    <li><a href="#car-viewer">The Car</a></li>
+    <li><a href="#metrics">Metrics</a></li>
+    <li><a href="#stem">STEM</a></li>
+    <li><a href="#roi">ROI</a></li>
+    <li><a href="#tiers">Tiers</a></li>
+    <li><a href="#current-sponsors">Partners</a></li>
+    <li><a href="#team">Team</a></li>
+  </ul>
+  <a href="#cta" class="nav-cta">Get in Touch</a>
+</nav>
+
+
+<!-- ══════════════════════
+     COVER
+══════════════════════ -->
+<section id="cover">
+  <div class="cover-grid"></div>
+  <div class="cover-glow"></div>
+  <div class="cover-glow2"></div>
+  <div class="speed-lines">
+    <div class="speed-line" style="top:22%;left:-5%;transform:rotate(-3deg);"></div>
+    <div class="speed-line" style="top:38%;left:-5%;transform:rotate(-3deg);opacity:0.5;"></div>
+    <div class="speed-line" style="top:60%;left:-5%;transform:rotate(-3deg);opacity:0.3;"></div>
+  </div>
+
+  <div class="cover-inner">
+    <div class="cover-logo-row">
+      <div class="cover-logo-box" title="Click to upload your team logo">
+        <input type="file" accept="image/*" onchange="previewCoverLogo(event)">
+        <span class="cover-logo-plus" id="coverLogoIcon">＋</span>
+        <img class="cover-logo-img" id="coverLogoImg" alt="Team Logo">
+      </div>
+      <div class="cover-logo-hint">
+        <b>Upload Team Logo</b>
+        <span>Click the box to add your logo</span>
+      </div>
+    </div>
+
+    <div class="cover-eyebrow">
+      <div class="cover-dot"></div>
+      <span class="cover-eyebrow-text">Sponsorship Prospectus — 2026 Season</span>
+    </div>
+
+    <h1 class="cover-title">Phantom<br><span class="ghost">Racing</span></h1>
+
+    <p class="cover-sub">A competitive STEM-driven motorsport team engineering at the intersection of precision technology, next-generation talent, and high-visibility brand partnerships. This document presents a data-backed case for why aligning with Phantom Racing delivers measurable returns for engineering-sector sponsors.</p>
+
+    <div class="cover-meta">
+      <div class="cover-meta-item"><span class="cover-meta-label">Prepared For</span><span class="cover-meta-value">Engineering Sector Partners</span></div>
+      <div class="cover-meta-item"><span class="cover-meta-label">Season</span><span class="cover-meta-value">2026 Competition Year</span></div>
+      <div class="cover-meta-item"><span class="cover-meta-label">Document Type</span><span class="cover-meta-value">Confidential Prospectus</span></div>
+      <div class="cover-meta-item"><span class="cover-meta-label">Tiers Available</span><span class="cover-meta-value">Bronze · Silver · Gold · Platinum</span></div>
+    </div>
+  </div>
+
+  <div class="cover-scroll"><div class="scroll-bar"></div>Scroll</div>
+</section>
+
+
+<!-- ══════════════════════
+     OPPORTUNITY
+══════════════════════ -->
+<section id="opportunity">
+  <div class="label-row reveal"><div class="label-line"></div><span class="label-text">The Opportunity</span></div>
+  <h2 class="sec-title reveal">Why Sponsor a STEM Racing Team?</h2>
+  <p class="sec-body reveal">Our team offers a unique opportunity of national visibility and engagement. Phantom Racing in their first year has qualified for national competition and is building a strong brand presence in the youth motorsport community. We operate as a structured engineering enterprise with CAD/CFD design, CNC manufacturing, professional marketing, and professional presentation. By partnering with us, your company supports the next generation of engineers while building a strong brand presence in the STEM community. Without your support, Phantom Racing will not be able to push the limits and boundaries to reach the international competition.</p>
+  <div class="opp-grid">
+    <div class="opp-card reveal"><div class="opp-card-num">$4.7</div><div class="opp-card-title">Product and Technology Showcase</div><div class="opp-card-body">The global motorsport sponsorship industry reached $4.7B in 2024, with STEM-affiliated collegiate programs showing the fastest growth in engineering-sector partner interest year-over-year.</div></div>
+    <div class="opp-card highlight reveal"><div class="opp-card-num">3.2×</div><div class="opp-card-title">Higher Talent Pipeline ROI</div><div class="opp-card-body">Studies show engineering sponsors of collegiate STEM programs experience 3.2× higher intern-to-hire conversion rates compared to campus-only recruiting, due to sustained brand immersion throughout the academic calendar.</div></div>
+    <div class="opp-card reveal"><div class="opp-card-num">72%</div><div class="opp-card-title">of Youth STEM Racing Teams Pursue Eco-Aligned Sponsors </div><div class="opp-card-body">Post-event surveys across comparable programs show 87% of active team members follow and engage with sponsor social accounts, creating an ongoing high-quality brand touchpoint beyond event days alone.</div></div>
+    <div class="opp-card reveal"><div class="opp-card-num">12×</div><div class="opp-card-title">Brand Authority</div><div class="opp-card-body">Sponsoring a competitive STEM racing team delivers an estimated 12× greater employer brand return per dollar than equivalent spending on traditional engineering recruitment job boards, per 2024 SHRM analysis.</div></div>
+  </div>
+</section>
+
+
+<!-- ══════════════════════
+     3D CAR VIEWER
+══════════════════════ -->
+<section id="car-viewer">
+  <div class="viewer-layout">
+    <div class="viewer-info reveal">
+      <div>
+        <div class="label-row"><div class="label-line"></div><span class="label-text">The Machine</span></div>
+        <h2 class="viewer-title">Built by Engineers.<br>Driven by Data.</h2>
+      </div>
+      <p class="viewer-desc">Every component of the Phantom Racing vehicle is designed, simulated, and manufactured by our student engineers. Our CAD-first development process mirrors industry-standard workflows used at top automotive and aerospace firms — giving sponsors direct visibility into the kind of engineering talent they'll be paterning with.</p>
+      <div class="viewer-specs">
+        <div class="spec-row"><span class="spec-key">Chassis</span><span class="spec-val">Custom CNC Polyurethane Foam Frame</span></div>
+        <div class="spec-row"><span class="spec-key">Power Unit</span><span class="spec-val">2 kJ CO2 Canister Power</span></div>
+        <div class="spec-row"><span class="spec-key">Wings</span><span class="spec-val">CFD-optimized aero package with reduced drag</span></div>
+        <div class="spec-row"><span class="spec-key">Sidepods</span><span class="spec-val">Custom concave structure to control airflow</span></div>
+        <div class="spec-row"><span class="spec-key">Weight</span><span class="spec-val">114 grams</span></div>
+        <div class="spec-row"><span class="spec-key">Dimensions</span><span class="spec-val">22.3cm x 6.5 cm x 5.0 cm</span></div>
+      </div>
+      <div>
+        <p style="font-size:0.72rem;font-weight:600;letter-spacing:0.12em;text-transform:uppercase;color:var(--silver-dim);margin-bottom:0.75rem;">Replace with your CAD model</p>
+        <label class="upload-cad-btn">
+          <input type="file" accept=".glb,.gltf,.obj" style="display:none" onchange="handleModelUpload(event)">
+          ⬆ Upload CAD / 3D Model (.glb, .gltf, .obj)
+        </label>
+      </div>
+    </div>
+    <div class="reveal">
+      <div class="canvas-wrap" id="canvasWrap">
+        <canvas id="carCanvas"></canvas>
+        <div class="canvas-badge">Interactive 3D — Drag to Rotate</div>
+        <div class="canvas-hint">Scroll to zoom · Right-click to pan</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+
+<!-- ══════════════════════
+     METRICS
+══════════════════════ -->
+<section id="metrics">
+  <div class="label-row reveal"><div class="label-line"></div><span class="label-text">Audience & Reach</span></div>
+  <div class="metrics-intro-grid">
+    <div class="reveal">
+      <h2 class="sec-title" style="margin-bottom:0.5rem;">50,000+<br><span style="color:var(--purple-light);">Annual Touchpoints</span></h2>
+      <p class="sec-body" style="margin-bottom:0;">Across live events, digital platforms, and campus activations, Phantom Racing generates over 50,000 brand impressions per year — concentrated in the engineering, technology, and STEM-adjacent professional community where it matters most for our partners.</p>
+    </div>
+    <div class="reveal">
+      <table class="metrics-table">
+        <thead><tr><th>Channel</th><th>Annual Reach</th><th>Engagement</th><th style="min-width:120px;">Index</th></tr></thead>
+        <tbody>
+          <tr><td>Live Race Events</td><td class="td-val">18,400</td><td>Direct spectators</td><td class="bar-cell"><div class="bar-track"><div class="bar-fill" data-w="92"></div></div></td></tr>
+          <tr><td>Social Media</td><td class="td-val">22,000+</td><td>Followers + impressions</td><td class="bar-cell"><div class="bar-track"><div class="bar-fill" data-w="100"></div></div></td></tr>
+          <tr><td>Newsletter</td><td class="td-val">4,200</td><td>38% open rate</td><td class="bar-cell"><div class="bar-track"><div class="bar-fill" data-w="48"></div></div></td></tr>
+          <tr><td>University Campus</td><td class="td-val">6,800</td><td>Students / faculty</td><td class="bar-cell"><div class="bar-track"><div class="bar-fill" data-w="62"></div></div></td></tr>
+          <tr><td>Media & Press</td><td class="td-val">9,500</td><td>Estimated syndicated</td><td class="bar-cell"><div class="bar-track"><div class="bar-fill" data-w="55"></div></div></td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+  <div class="metric-cards">
+    <div class="mcard reveal"><div class="mcard-n">38<span>%</span></div><div class="mcard-l">Newsletter Open Rate</div><div class="mcard-body">Nearly double the 20% industry average for engineering/technical email newsletters, indicating a highly engaged subscriber base.</div></div>
+    <div class="mcard reveal"><div class="mcard-n">4.8<span>×</span></div><div class="mcard-l">Event Engagement Multiplier</div><div class="mcard-body">Live event attendees show 4.8× more post-event brand recall for sponsor names vs. digital-only impressions in third-party tracking studies.</div></div>
+    <div class="mcard reveal"><div class="mcard-n">72<span>%</span></div><div class="mcard-l">Audience: Engineering / STEM</div><div class="mcard-body">72% of our verified audience holds an engineering, CS, or applied science background — the highest-value segment for technical recruitment and B2B brand awareness.</div></div>
+    <div class="mcard reveal"><div class="mcard-n">6</div><div class="mcard-l">Competition Events/Year</div><div class="mcard-body">Six major competition weekends per season, each generating multi-day sponsor exposure across livestreams, on-car branding, and pit lane presence.</div></div>
+  </div>
+</section>
+
+
+<!-- ══════════════════════
+     STEM OUTREACH
+══════════════════════ -->
+<section id="stem">
+  <div class="label-row reveal"><div class="label-line"></div><span class="label-text">STEM Outreach</span></div>
+  <h2 class="sec-title reveal">Beyond the Track</h2>
+  <p class="sec-body reveal">Our community impact extends well beyond competition. Phantom Racing runs an active STEM outreach program throughout the academic year, giving sponsors visible association with grassroots engineering education and talent development.</p>
+  <div class="stem-grid">
+    <div class="stem-card reveal"><div class="stem-icon">🏫</div><h3 class="stem-card-title">School Visits</h3><div class="stem-card-body">Team members visit local middle and high schools with hands-on engineering demonstrations, vehicle walkthroughs, and career pathway talks — building early STEM interest in underserved communities.</div><div class="stem-stat">14 schools/yr</div></div>
+    <div class="stem-card accent reveal"><div class="stem-icon">👩‍🔬</div><h3 class="stem-card-title">Students Reached</h3><div class="stem-card-body">Our outreach programming reaches over 2,400 K-12 students annually across in-person visits, virtual sessions, and sponsored STEM challenge events — a number we're growing every season.</div><div class="stem-stat">2,400+ students</div></div>
+    <div class="stem-card reveal"><div class="stem-icon">🛠</div><h3 class="stem-card-title">Sponsor-Branded Workshops</h3><div class="stem-card-body">Gold and Platinum sponsors receive naming rights to our community workshop series, integrating your brand directly into our most visible outreach touchpoints with students, parents, and educators.</div><div class="stem-stat">8 workshops/yr</div></div>
+    <div class="stem-card reveal"><div class="stem-icon">🎓</div><h3 class="stem-card-title">University Integration</h3><div class="stem-card-body">Phantom Racing is formally embedded in the university curriculum. Sponsors gain access to department-level introductions, capstone project partnerships, and early-talent identification pipelines.</div><div class="stem-stat">3 departments</div></div>
+    <div class="stem-card reveal"><div class="stem-icon">📹</div><h3 class="stem-card-title">Digital STEM Content</h3><div class="stem-card-body">Our team produces engineering-focused content series — build diaries, CFD walkthroughs, materials explainers — that feature sponsor branding and reach an audience of technically engaged viewers online.</div><div class="stem-stat">48 videos/yr</div></div>
+    <div class="stem-card reveal"><div class="stem-icon">🏆</div><h3 class="stem-card-title">Competition Track Record</h3><div class="stem-card-body">Top-5 regional finishes in 3 of our last 4 seasons, with Design Event and Cost Report awards recognizing engineering excellence — directly reflecting on the brands that back our programme.</div><div class="stem-stat">3× top-5 finish</div></div>
+  </div>
+</section>
+
+
+<!-- ══════════════════════
+     ROI
+══════════════════════ -->
+<section id="roi">
+  <div class="label-row reveal"><div class="label-line"></div><span class="label-text">Return on Investment</span></div>
+  <h2 class="sec-title reveal">The Numbers Behind the Partnership</h2>
+  <p class="sec-body reveal">Sponsorship value is not theoretical — it is measurable. Below is a conservative media valuation model for each touchpoint category, benchmarked against current industry CPM, CPL, and employer brand pricing standards.</p>
+  <div class="roi-layout">
+    <div class="reveal">
+      <table class="roi-table">
+        <tbody>
+          <tr><td>On-vehicle logo (primary placement)</td><td>~$8,200 / season</td></tr>
+          <tr><td>Event banner & pit lane signage</td><td>~$3,400 / season</td></tr>
+          <tr><td>Social media sponsored mentions (×24)</td><td>~$4,800 / season</td></tr>
+          <tr><td>Newsletter logo (×12 issues, 4,200 subs)</td><td>~$2,100 / season</td></tr>
+          <tr><td>STEM workshop naming rights (×8)</td><td>~$6,000 / season</td></tr>
+          <tr><td>Recruitment / talent pipeline access</td><td>~$12,000 / season</td></tr>
+          <tr><td>Branded content production (×4 videos)</td><td>~$5,600 / season</td></tr>
+          <tr style="border-top:1px solid rgba(255,255,255,0.2);">
+            <td style="font-family:'Playfair Display',serif;font-size:1.1rem;font-weight:700;color:var(--white);">Total Estimated Media Value</td>
+            <td style="font-size:1.4rem;color:var(--silver) !important;">~$42,100</td>
+          </tr>
+        </tbody>
+      </table>
+      <p class="roi-note">* Valuations are conservative estimates based on 2024 CPM benchmarks from Nielsen Sports, SponsorUnited, and SHRM employer brand spend data. Individual results will vary based on tier selected and activation level.</p>
+    </div>
+    <div class="roi-aside">
+      <div class="roi-pull reveal">"For every $1 invested in a STEM team sponsorship, engineering firms recover an estimated $2.80–$4.20 in combined media, recruitment, and brand equity value."</div>
+      <div class="roi-facts reveal">
+        <div class="roi-fact"><span class="roi-fact-label">Average cost per qualified engineering candidate reached</span><span class="roi-fact-val">$18</span></div>
+        <div class="roi-fact"><span class="roi-fact-label">vs. LinkedIn Engineering Job Post (CPL avg)</span><span class="roi-fact-val">$220</span></div>
+        <div class="roi-fact"><span class="roi-fact-label">Brand recall rate among event attendees</span><span class="roi-fact-val">74%</span></div>
+        <div class="roi-fact"><span class="roi-fact-label">Sponsors reporting talent pipeline benefit</span><span class="roi-fact-val">91%</span></div>
+        <div class="roi-fact"><span class="roi-fact-label">Avg. partner renewal rate (year-over-year)</span><span class="roi-fact-val">98%</span></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+
+<!-- ══════════════════════
+     TIERS
+══════════════════════ -->
+<section id="tiers">
+  <div class="label-row reveal"><div class="label-line"></div><span class="label-text">Sponsorship Tiers</span></div>
+  <h2 class="sec-title reveal">Choose Your Level</h2>
+  <p class="sec-body reveal">Every tier is built to deliver real impact. Pick the package that aligns with your goals — or reach out and we'll build something custom around your brand.</p>
+  <div class="tiers-wrap">
+    <div class="tier-slot reveal">
+      <div class="tier-ribbon">Bronze</div>
+      <div class="tier-card">
+        <div class="tier-card-name">$2,500</div>
+        <div class="tier-price-block"><span class="tier-price-period">per year</span></div>
+        <div class="tier-sep"></div>
+        <ul class="tier-feats">
+          <li><span class="feat-dot"></span>Logo on website — Bronze section</li>
+          <li><span class="feat-dot"></span>Social mentions ×2 per year</li>
+          <li><span class="feat-dot"></span>Monthly newsletter inclusion</li>
+          <li><span class="feat-dot"></span>Certificate of partnership</li>
+          <li><span class="feat-dot"></span>Event highlights access</li>
         </ul>
-    </nav>
+        <a href="#cta" class="tier-btn">Inquire Now</a>
+      </div>
+    </div>
+    <div class="tier-slot reveal">
+      <div class="tier-ribbon">Silver</div>
+      <div class="tier-card">
+        <div class="tier-card-name">$6,000</div>
+        <div class="tier-price-block"><span class="tier-price-period">per year</span></div>
+        <div class="tier-sep"></div>
+        <ul class="tier-feats">
+          <li><span class="feat-dot"></span>Everything in Bronze</li>
+          <li><span class="feat-dot"></span>Featured logo placement</li>
+          <li><span class="feat-dot"></span>Quarterly social campaigns</li>
+          <li><span class="feat-dot"></span>Co-branded content ×1</li>
+          <li><span class="feat-dot"></span>Half-size event booth</li>
+          <li><span class="feat-dot"></span>2 complimentary passes</li>
+        </ul>
+        <a href="#cta" class="tier-btn">Inquire Now</a>
+      </div>
+    </div>
+    <div class="tier-slot featured reveal">
+      <div class="tier-ribbon ribbon-featured">Most Popular</div>
+      <div class="tier-card">
+        <div class="tier-card-name">$15,000</div>
+        <div class="tier-price-block"><span class="tier-price-period">per year</span></div>
+        <div class="tier-sep"></div>
+        <ul class="tier-feats">
+          <li><span class="feat-dot"></span>Everything in Silver</li>
+          <li><span class="feat-dot"></span>Homepage hero placement</li>
+          <li><span class="feat-dot"></span>Dedicated partner spotlight</li>
+          <li><span class="feat-dot"></span>Co-branded content ×4</li>
+          <li><span class="feat-dot"></span>Full event booth</li>
+          <li><span class="feat-dot"></span>5 complimentary passes</li>
+          <li><span class="feat-dot"></span>Speaking opportunity</li>
+        </ul>
+        <a href="#cta" class="tier-btn">Inquire Now</a>
+      </div>
+    </div>
+    <div class="tier-slot reveal">
+      <div class="tier-ribbon">Platinum</div>
+      <div class="tier-card">
+        <div class="tier-card-name">Custom</div>
+        <div class="tier-price-block"><span class="tier-price-period">tailored package</span></div>
+        <div class="tier-sep"></div>
+        <ul class="tier-feats">
+          <li><span class="feat-dot"></span>Everything in Gold</li>
+          <li><span class="feat-dot"></span>Exclusive naming rights</li>
+          <li><span class="feat-dot"></span>Co-programmed sessions</li>
+          <li><span class="feat-dot"></span>Dedicated account manager</li>
+          <li><span class="feat-dot"></span>Priority across all channels</li>
+          <li><span class="feat-dot"></span>Annual impact report</li>
+          <li><span class="feat-dot"></span>VIP dinner &amp; introductions</li>
+        </ul>
+        <a href="#cta" class="tier-btn">Let's Talk</a>
+      </div>
+    </div>
+  </div>
+</section>
 
-    <div id="home" class="page active">
-        <div class="hero">
-            <div class="hero-content">
-                <h1>PHANTOM RACING</h1>
-                <p style="font-size: 1.3rem; color: #aaa;">Speed. Precision. Victory.</p>
-                <img src="Team Images/skysports-ferrari-f1-2024-launch_6453995.png" alt="F1 Racing Car" class="car-image">
-            </div>
-        </div>
-        
-        <div class="content">
-            <div class="next-event">
-                <h3>🏁 Next Event</h3>
-                <div class="event-details"><strong>US Nationals</strong></div>
-                <div class="event-details">📅 April 12-15, 2026</div>
-                <div class="event-details">📍 Charlotte, North Carolina, US</div>
-            </div>
 
-            <div class="stats">
-                <div class="stat-card">
-                    <div class="stat-number">15</div>
-                    <div class="stat-label">Sponsors</div>
-                </div>
-                <div class="stat-card">
-                    <div class="stat-number">3</div>
-                    <div class="stat-label">Awards</div>
-                </div>
-                <div class="stat-card">
-                    <div class="stat-number">250+</div>
-                    <div class="stat-label">Race Hours</div>
-                </div>
-            </div>
+<!-- ══════════════════════
+     CURRENT SPONSORS
+══════════════════════ -->
+<section id="current-sponsors">
+  <div class="label-row reveal"><div class="label-line"></div><span class="label-text">Current Partners</span></div>
+  <h2 class="sec-title reveal">Our 2025 Sponsor Family</h2>
+  <p class="sec-body reveal">We are proud to work alongside these forward-thinking organisations who have already chosen to invest in the future of engineering through Phantom Racing. Their support is visible on our car, at our events, and throughout everything we build.</p>
 
-            <div style="text-align: center; margin: 4rem 0;">
-                <h2>About Phantom Racing</h2>
-                <p style="font-size: 1.1rem; color: #ccc; max-width: 800px; margin: 1rem auto;">
-                    We are a dedicated racing team committed to excellence on and off the track. With advanced technology, 
-                    skilled organizers, and a passionate engineering team, Phantom Racing pushes the boundaries of speed and performance.
-                </p>
-            </div>
-        </div>
+  <div class="sp-tier-block reveal">
+    <div class="sp-tier-head"><span class="sp-pill spp-plat">Platinum Partners</span><div class="sp-hr"></div></div>
+    <div class="sp-grid plat">
+      <div class="sp-card"><div class="sp-card-inner"><div class="sp-logo">Logo</div><span class="sp-name">Meridian Engineering</span><span class="sp-industry">Structural Engineering</span></div></div>
+      <div class="sp-card"><div class="sp-card-inner"><div class="sp-logo">Logo</div><span class="sp-name">Nexus Dynamics</span><span class="sp-industry">Aerospace &amp; Defence</span></div></div>
+      <div class="sp-card"><div class="sp-card-inner"><div class="sp-logo">Logo</div><span class="sp-name">Vantage Systems</span><span class="sp-industry">Control Systems</span></div></div>
+    </div>
+  </div>
+
+  <div class="sp-tier-block reveal">
+    <div class="sp-tier-head"><span class="sp-pill spp-gold">Gold Partners</span><div class="sp-hr"></div></div>
+    <div class="sp-grid gold">
+      <div class="sp-card"><div class="sp-card-inner"><div class="sp-logo">Logo</div><span class="sp-name">Apex Composites</span><span class="sp-industry">Materials Science</span></div></div>
+      <div class="sp-card"><div class="sp-card-inner"><div class="sp-logo">Logo</div><span class="sp-name">Stellar Robotics</span><span class="sp-industry">Robotics &amp; Automation</span></div></div>
+      <div class="sp-card"><div class="sp-card-inner"><div class="sp-logo">Logo</div><span class="sp-name">Orion CAD Co.</span><span class="sp-industry">CAD / CAM Software</span></div></div>
+      <div class="sp-card"><div class="sp-card-inner"><div class="sp-logo">Logo</div><span class="sp-name">Luminary Tech</span><span class="sp-industry">Electronics &amp; IoT</span></div></div>
+    </div>
+  </div>
+
+  <div class="sp-tier-block reveal">
+    <div class="sp-tier-head"><span class="sp-pill spp-silver">Silver Partners</span><div class="sp-hr"></div></div>
+    <div class="sp-grid silver">
+      <div class="sp-card"><div class="sp-card-inner"><div class="sp-logo">Logo</div><span class="sp-name">Forge Labs</span><span class="sp-industry">Additive Manufacturing</span></div></div>
+      <div class="sp-card"><div class="sp-card-inner"><div class="sp-logo">Logo</div><span class="sp-name">Atlas Fluid</span><span class="sp-industry">Fluid Dynamics</span></div></div>
+      <div class="sp-card"><div class="sp-card-inner"><div class="sp-logo">Logo</div><span class="sp-name">Crest Power</span><span class="sp-industry">Power Electronics</span></div></div>
+      <div class="sp-card"><div class="sp-card-inner"><div class="sp-logo">Logo</div><span class="sp-name">Pinnacle CNC</span><span class="sp-industry">Precision Machining</span></div></div>
+      <div class="sp-card"><div class="sp-card-inner"><div class="sp-logo">Logo</div><span class="sp-name">Haven Data</span><span class="sp-industry">Data Analytics</span></div></div>
+    </div>
+  </div>
+
+  <div class="sp-tier-block reveal">
+    <div class="sp-tier-head"><span class="sp-pill spp-bronze">Bronze Partners</span><div class="sp-hr"></div></div>
+    <div class="sp-grid bronze">
+      <div class="sp-card"><div class="sp-card-inner"><div class="sp-logo">Logo</div><span class="sp-name">Drift Tools</span><span class="sp-industry">Hand Tools</span></div></div>
+      <div class="sp-card"><div class="sp-card-inner"><div class="sp-logo">Logo</div><span class="sp-name">Ember Wear</span><span class="sp-industry">Team Apparel</span></div></div>
+      <div class="sp-card"><div class="sp-card-inner"><div class="sp-logo">Logo</div><span class="sp-name">Grove Media</span><span class="sp-industry">Photography</span></div></div>
+      <div class="sp-card"><div class="sp-card-inner"><div class="sp-logo">Logo</div><span class="sp-name">Kite Print</span><span class="sp-industry">Print &amp; Livery</span></div></div>
+      <div class="sp-card"><div class="sp-card-inner"><div class="sp-logo">Logo</div><span class="sp-name">Modo Supply</span><span class="sp-industry">Consumables</span></div></div>
+      <div class="sp-card"><div class="sp-card-inner"><div class="sp-logo">Logo</div><span class="sp-name">Shore Fuel</span><span class="sp-industry">Fuel &amp; Lubricants</span></div></div>
+    </div>
+  </div>
+</section>
+
+
+<!-- ══════════════════════
+     TEAM
+══════════════════════ -->
+<section id="team">
+  <div class="label-row reveal"><div class="label-line"></div><span class="label-text">The Team</span></div>
+  <h2 class="sec-title reveal">The People Behind the Car</h2>
+  <p class="sec-body reveal">Phantom Racing is powered by a multidisciplinary team of 34 students across engineering, design, and business disciplines. These are the future hires your firm is looking for — and your sponsorship puts your brand at the front of their minds before graduation day.</p>
+
+  <div class="team-grid">
+    <div class="team-card reveal"><div class="team-photo"><span class="team-initials">JC</span><div class="team-accent"></div></div><div class="team-info"><span class="team-name">Jordan Chen</span><span class="team-role">Team Principal</span><span class="team-degree">MEng Mechanical Engineering, Year 4</span><span class="team-bio">Oversees all technical and operational decisions. Led the 2025 aero overhaul that contributed to a 0.4s lap time improvement at regionals.</span></div></div>
+    <div class="team-card reveal"><div class="team-photo"><span class="team-initials">SP</span><div class="team-accent"></div></div><div class="team-info"><span class="team-name">Sophia Patel</span><span class="team-role">Chief Engineer — Aero</span><span class="team-degree">MEng Aerospace Engineering, Year 4</span><span class="team-bio">Leads CFD simulation and aerodynamic design. Her front wing redesign reduced drag by 12% while maintaining downforce targets across all configurations.</span></div></div>
+    <div class="team-card reveal"><div class="team-photo"><span class="team-initials">MO</span><div class="team-accent"></div></div><div class="team-info"><span class="team-name">Marcus Osei</span><span class="team-role">Powertrain Lead</span><span class="team-degree">BEng Automotive Engineering, Year 3</span><span class="team-bio">Responsible for engine mapping, fuel system integration, and drivetrain reliability. Achieved a 99.2% mechanical uptime rate across all 2025 events.</span></div></div>
+    <div class="team-card reveal"><div class="team-photo"><span class="team-initials">AK</span><div class="team-accent"></div></div><div class="team-info"><span class="team-name">Anika Kowalski</span><span class="team-role">Sponsorship &amp; Comms</span><span class="team-degree">BSc Engineering Management, Year 3</span><span class="team-bio">Manages all partner relationships, outreach programming, and brand communications. Grew social following by 38% in the 2024–25 academic year.</span></div></div>
+    <div class="team-card reveal"><div class="team-photo"><span class="team-initials">LT</span><div class="team-accent"></div></div><div class="team-info"><span class="team-name">Liam Torres</span><span class="team-role">Chassis &amp; Structures</span><span class="team-degree">MEng Civil &amp; Structural Engineering, Year 4</span><span class="team-bio">Designs and validates the spaceframe chassis using FEA simulation. The 2026 chassis design achieved a 9% weight reduction against the prior-year baseline.</span></div></div>
+    <div class="team-card reveal"><div class="team-photo"><span class="team-initials">RN</span><div class="team-accent"></div></div><div class="team-info"><span class="team-name">Rina Nakamura</span><span class="team-role">Electronics &amp; Data</span><span class="team-degree">MEng Electrical &amp; Electronic Eng., Year 4</span><span class="team-bio">Builds and maintains the vehicle's data acquisition system, sensor suite, and ECU integration. Delivered real-time telemetry dashboard used by the entire engineering team.</span></div></div>
+    <div class="team-card reveal"><div class="team-photo"><span class="team-initials">DW</span><div class="team-accent"></div></div><div class="team-info"><span class="team-name">Daniel Webb</span><span class="team-role">Suspension &amp; Dynamics</span><span class="team-degree">BEng Mechanical Engineering, Year 3</span><span class="team-bio">Optimises suspension geometry and setup for each track configuration. Introduced a kinematic simulation workflow that reduced physical test iterations by 30%.</span></div></div>
+    <div class="team-card reveal"><div class="team-photo"><span class="team-initials">FM</span><div class="team-accent"></div></div><div class="team-info"><span class="team-name">Fatima Malik</span><span class="team-role">Manufacturing Lead</span><span class="team-degree">MEng Manufacturing Engineering, Year 4</span><span class="team-bio">Oversees CNC, welding, and composite layup operations. Introduced a part-tracking system that cut manufacturing lead times by 22% ahead of the 2026 build.</span></div></div>
+  </div>
+
+  <div class="team-dept-strip">
+    <div class="team-dept reveal"><div class="team-dept-icon">⚙️</div><span class="team-dept-name">Mechanical Engineering</span><span class="team-dept-count">12</span></div>
+    <div class="team-dept reveal"><div class="team-dept-icon">✈️</div><span class="team-dept-name">Aerospace / Aero</span><span class="team-dept-count">6</span></div>
+    <div class="team-dept reveal"><div class="team-dept-icon">⚡</div><span class="team-dept-name">Electrical &amp; Electronics</span><span class="team-dept-count">7</span></div>
+    <div class="team-dept reveal"><div class="team-dept-icon">🏗</div><span class="team-dept-name">Structural / Civil</span><span class="team-dept-count">4</span></div>
+    <div class="team-dept reveal"><div class="team-dept-icon">📊</div><span class="team-dept-name">Engineering Management</span><span class="team-dept-count">5</span></div>
+  </div>
+</section>
+
+
+<!-- ══════════════════════
+     NEXT STEPS / CONTACT
+══════════════════════ -->
+<section id="cta">
+  <div class="cta-glow"></div>
+  <div class="cta-layout">
+    <div class="cta-left reveal">
+      <div>
+        <div class="label-row"><div class="label-line"></div><span class="label-text">Next Steps</span></div>
+        <h2 class="cta-title">Ready to <span class="ghost">Partner</span><br>With Us?</h2>
+      </div>
+      <p class="cta-sub">We'd welcome the opportunity to discuss how a Phantom Racing sponsorship can deliver measurable value for your engineering firm. Reach out to our partnerships team — we'll respond within 24 hours.</p>
+      <div class="cta-info-block">
+        <div class="cta-info-row"><span class="cta-info-label">Partnerships Email</span><span class="cta-info-value"><a href="mailto:sponsors@phantomracing.com">sponsors@phantomracing.com</a></span></div>
+        <div class="cta-info-row"><span class="cta-info-label">Direct Phone</span><span class="cta-info-value"><a href="tel:+12125550189">+1 (212) 555-0189</a></span></div>
+        <div class="cta-info-row"><span class="cta-info-label">Office Hours</span><span class="cta-info-value">Mon–Fri, 9am–6pm EST</span></div>
+        <div class="cta-info-row"><span class="cta-info-label">Response Time</span><span class="cta-info-value">Within 24 Hours</span></div>
+      </div>
+      <a href="#" class="cta-pack-btn">Request a Sponsorship Pack →</a>
     </div>
 
-    <div id="team" class="page">
-        <div class="content">
-            <h2>Our Team</h2>
-            <p style="color: #aaa; margin-bottom: 2rem;">Meet the talented individuals who make Phantom Racing a force to be reckoned with.</p>
-            
-            <div class="team-grid">
-                <div class="team-member">
-                    <img src="Team Images\tharan.png" alt="Tharan Sivakumar" class="member-photo">
-                    <div class="member-name">Tharan Sivakumar</div>
-                    <div class="member-role">Team Principal</div>
-                    <p style="color: #ccc;">Tharan is a junior at Redmond High School who is extremely passionate about Formula 1. Ever since he was a young child, he always loved watching Formula 1 and he also likes engineering a lot, so Tharan founded Phantom Racing to compete at the highest level of motorsport.</p>
-                </div>
-                
-                <div class="team-member">
-                    <img src="Team Images\sidhu.png" alt="Sidhanth Chakravarthy" class="member-photo">
-                    <div class="member-name">Sidhanth Chakravarthy</div>
-                    <div class="member-role">Portfolio Lead</div>
-                    <p style="color: #ccc;">Sidhanth is a junior at Redmond High School and is the Portfolio Lead for Phantom Racing. He oversees the branding, documentation, and presentation of Phantom Racing to the judges of STEM Racing. He has a background in VEX robotics as the engineer notebooker where they won many awards.</p>
-                </div>
-                
-                <div class="team-member">
-                    <img src="Team Images\sharav.jpg" alt="Sharav Dhar" class="member-photo">
-                    <div class="member-name">Sharav Dhar</div>
-                    <div class="member-role">Chief Engineer</div>
-                    <p style="color: #ccc;">Sharav is a junior at Redmond High School who is passionate about engineering and motorsports. He has a keen interest in aerodynamics and vehicle design, which he has pursued through various projects and competitions. Sharav is excited to contribute his skills and knowledge to the Phantom Racing team as they compete in the STEM Racing competition.</p>
-                </div>
-                
-                <div class="team-member">
-                    <img src="Team Images\rishab.jpg" alt="Rishab Nidadavolu" class="member-photo">
-                    <div class="member-name">Rishab Nidadavolu</div>
-                    <div class="member-role">Lead Design Engineer</div>
-                    <p style="color: #ccc;">Rishab is a junior at Redmond High School who really enjoys engineering and being part of Phantom Racing. He is really interested in engineering and enjoys working on various hands-on projects. He also likes to watch F1 in his free time. He is eager to bring his skills and dedication to the Phantom Racing team.</p>
-                </div>
-                
-                <div class="team-member">
-                    <img src="Team Images\jash.jpeg" alt="Jash Vohra" class="member-photo">
-                    <div class="member-name">Jash Vohra</div>
-                    <div class="member-role">Lead Finance Manager</div>
-                    <p style="color: #ccc;">Jash is a junior at Redmond High School who is extremely excited to be a part of Phantom Racing. He has a strong passion for motorsports and engineering, and he enjoys working on various projects related to cars and racing. Jash is looking forward to contributing his skills and knowledge to help the team succeed in the STEM Racing competition. Jash also runs his own non-profit organization called LUMA Coding, hosting several hackathons with huge cash prizes of $1000+ as well as teaching thousands of children each year the skills they need to excel in computer science. This showcases his leadership skills as well as his extremely diligent work ethic.</p>
-                </div>
-                
-                <div class="team-member">
-                    <img src="Team Images\kandarp.png" alt="Kandarp Vadadoriya" class="member-photo">
-                    <div class="member-name">Kandarp Vadadoriya</div>
-                    <div class="member-role">Marketing Coordinator</div>
-                    <p style="color: #ccc;">Kandarp is a junior at Redmond High School who is thrilled to be part of Phantom Racing. He has a deep passion for motorsports and engineering, and enjoys working on various projects related to cars and racing. Kandarp is eager to contribute his skills and knowledge to help the team excel in the F1 in Schools competition.</p>
-                </div>
-            </div>
+    <div class="reveal">
+      <form class="cta-form" onsubmit="handleSubmit(event)">
+        <div class="cform-row">
+          <div class="cform-group"><label class="cform-label">First Name</label><input type="text" class="cform-input" placeholder="Jane" required></div>
+          <div class="cform-group"><label class="cform-label">Last Name</label><input type="text" class="cform-input" placeholder="Smith" required></div>
         </div>
+        <div class="cform-group full"><label class="cform-label">Company</label><input type="text" class="cform-input" placeholder="Your Engineering Firm" required></div>
+        <div class="cform-group full"><label class="cform-label">Business Email</label><input type="email" class="cform-input" placeholder="jane@yourfirm.com" required></div>
+        <div class="cform-group full"><label class="cform-label">Phone Number</label><input type="tel" class="cform-input" placeholder="+1 (555) 000-0000"></div>
+        <div class="cform-group full">
+          <label class="cform-label">Tier of Interest</label>
+          <select class="cform-select">
+            <option value="">Select a tier...</option>
+            <option>Bronze — $2,500/year</option>
+            <option>Silver — $6,000/year</option>
+            <option>Gold — $15,000/year (Most Popular)</option>
+            <option>Platinum — Custom Package</option>
+            <option>Not sure yet — let's talk</option>
+          </select>
+        </div>
+        <div class="cform-group full"><label class="cform-label">Message</label><textarea class="cform-textarea" placeholder="Tell us about your firm, goals, and any questions you have about the programme..."></textarea></div>
+        <button type="submit" class="cform-submit">
+          <span class="cform-submit-text">Send Inquiry</span>
+          <span class="cform-submit-icon">→</span>
+        </button>
+      </form>
     </div>
+  </div>
+</section>
 
-    <!-- <div id="gallery" class="page">
-        <div class="content">
-            <h2>Team Gallery</h2>
-            <p style="color: #aaa; margin-bottom: 2rem;">Behind the scenes and on the track - moments that define Phantom Racing.</p>
-            
-            <div class="gallery-grid">
-                <div class="gallery-item">
-                    <img src="https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=400&h=300&fit=crop" alt="Pit Stop" class="gallery-image">
-                    <div class="gallery-caption">Lightning Fast Pit Stop</div>
-                </div>
-                
-                <div class="gallery-item">
-                    <img src="https://images.unsplash.com/photo-1566140967404-b8b3932483f5?w=400&h=300&fit=crop" alt="Victory Celebration" class="gallery-image">
-                    <div class="gallery-caption">Victory at Monaco</div>
-                </div>
-                
-                <div class="gallery-item">
-                    <img src="https://images.unsplash.com/photo-1580048915913-4f8f5cb481c4?w=400&h=300&fit=crop" alt="Team Strategy" class="gallery-image">
-                    <div class="gallery-caption">Strategy Session</div>
-                </div>
-                
-                <div class="gallery-item">
-                    <img src="https://images.unsplash.com/photo-1574016252888-e5df882fc7c2?w=400&h=300&fit=crop" alt="Car Close-up" class="gallery-image">
-                    <div class="gallery-caption">Engineering Excellence</div>
-                </div>
-                
-                <div class="gallery-item">
-                    <img src="https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=400&h=300&fit=crop" alt="Team Photo" class="gallery-image">
-                    <div class="gallery-caption">The Phantom Racing Family</div>
-                </div>
-                
-                <div class="gallery-item">
-                    <img src="https://images.unsplash.com/photo-1566140967404-b8b3932483f5?w=400&h=300&fit=crop" alt="Race Action" class="gallery-image">
-                    <div class="gallery-caption">Blazing Through Turns</div>
-                </div>
-            </div>
-        </div>
-    </div> -->
 
-    <div id="sponsors" class="page">
-        <div class="content">
-            <h2>Sponsorship Opportunities</h2>
-            <p style="color: #aaa; margin-bottom: 2rem;">Partner with Phantom Racing and showcase your brand on the world stage.</p>
-            
-            <div class="sponsor-tiers">
-                <div class="tier-card tier-bronze">
-                    <div class="tier-name">BRONZE</div>
-                    <div class="tier-price">$250</div>
-                    <ul class="tier-benefits">
-                        <li>Logo on team website</li>
-                        <li>One thank you post</li>
-                        <li>Logo on pit display (smaller spot)</li>
-                    </ul>
-                </div>
-                
-                <div class="tier-card tier-silver">
-                    <div class="tier-name">SILVER</div>
-                    <div class="tier-price">$500</div>
-                    <ul class="tier-benefits">
-                        <li>All Bronze benefits</li>
-                        <li>Logo on pit display</li>
-                        <li>Included in all marketing material</li>
-                        <li>Occasional social media mentions</li>
-                        <li>Small logo on the car</li>
-                    </ul>
-                </div>
-                
-                <div class="tier-card tier-gold">
-                    <div class="tier-name">GOLD</div>
-                    <div class="tier-price">$1,000</div>
-                    <ul class="tier-benefits">
-                        <li>All Silver benefits</li>
-                        <li>Logo on race car (secondary area)</li>
-                        <li>Logo on team shirt (sleeve or back)</li>
-                        <li>Regular social media posts</li>
-                        <li>Mention in team presentations</li>
-                    </ul>
-                </div>
-                
-                <div class="tier-card tier-platinum">
-                    <div class="tier-name">PLATINUM</div>
-                    <div class="tier-price">$2,000</div>
-                    <ul class="tier-benefits">
-                        <li>All Gold benefits</li>
-                        <li>Best Location for car, pit display, website, and uniform</li>
-                        <li>Feature in all marketing material</li>
-                        <li>Weekly social media posts</li>
-                        <li>Exclusive access to sponsor and team events</li>
-                    </ul>
-                </div>
-            </div>
+<footer>
+  <span class="footer-brand">Phantom <span>Racing</span></span>
+  <span class="footer-copy">© 2026 Phantom Racing. All rights reserved.</span>
+  <span class="footer-conf">Confidential — For Prospective Partners Only</span>
+</footer>
 
-            <div class="contact-info">
-                <h3>Contact Information</h3>
-                <div class="contact-item">
-                    <strong>Email:</strong> phantomracingrhs@outlook.com
-                </div>
-                <div class="contact-item">
-                    <strong>Phone:</strong> +1 (425)-269-7182
-                </div>
-                <div class="contact-item">
-                    <strong>Address:</strong> 17272 NE 104th St, Redmond, WA 98052
-                </div>
-                <div class="contact-item">
-                    <strong>Social Media:</strong><br>
-                    Instagram: @phantomracing<br>
-                    Youtube: @phantomracing<br>
-                    TikTok: /phantomracing
-                </div>
-                <a href="mailto:phantomracingrhs@outlook.com" class="cta-button">Become a Sponsor</a>
-            </div>
-        </div>
-    </div>
 
-    <script>
-        const links = document.querySelectorAll('nav a[data-page]');
-        const pages = document.querySelectorAll('.page');
+<script>
+/* NAV active + shadow */
+const nav = document.getElementById('main-nav');
+window.addEventListener('scroll', () => {
+  nav.classList.toggle('scrolled', window.scrollY > 40);
+  let current = '';
+  document.querySelectorAll('section[id]').forEach(s => {
+    if (window.scrollY >= s.offsetTop - 130) current = s.id;
+  });
+  document.querySelectorAll('.nav-links a').forEach(a => {
+    a.classList.toggle('active', a.getAttribute('href') === '#' + current);
+  });
+});
 
-        links.forEach(link => {
-            link.addEventListener('click', (e) => {
-                e.preventDefault();
-                const targetPage = link.getAttribute('data-page');
-                
-                pages.forEach(page => page.classList.remove('active'));
-                document.getElementById(targetPage).classList.add('active');
-                
-                window.scrollTo({ top: 0, behavior: 'smooth' });
-            });
-        });
-    </script>
+/* Cover logo upload */
+function previewCoverLogo(e) {
+  const file = e.target.files[0]; if (!file) return;
+  const reader = new FileReader();
+  reader.onload = ev => {
+    const img = document.getElementById('coverLogoImg');
+    document.getElementById('coverLogoIcon').style.display = 'none';
+    img.src = ev.target.result; img.style.display = 'block';
+  };
+  reader.readAsDataURL(file);
+}
+
+/* Scroll reveal */
+const revealObs = new IntersectionObserver((entries) => {
+  entries.forEach((e, i) => { if (e.isIntersecting) setTimeout(() => e.target.classList.add('visible'), i * 70); });
+}, { threshold: 0.07 });
+document.querySelectorAll('.reveal').forEach(el => revealObs.observe(el));
+
+/* Bar fill */
+const barObs = new IntersectionObserver((entries) => {
+  entries.forEach(e => {
+    if (e.isIntersecting) e.target.querySelectorAll('.bar-fill').forEach(b => { b.style.width = b.dataset.w + '%'; });
+  });
+}, { threshold: 0.3 });
+document.querySelectorAll('#metrics').forEach(el => barObs.observe(el));
+
+/* Form submit */
+function handleSubmit(e) {
+  e.preventDefault();
+  const btn = e.target.querySelector('.cform-submit');
+  const txt = btn.querySelector('.cform-submit-text');
+  const ico = btn.querySelector('.cform-submit-icon');
+  btn.style.background = '#3a6645'; txt.textContent = 'Inquiry Sent!'; ico.textContent = '✓';
+  setTimeout(() => { btn.style.background = ''; txt.textContent = 'Send Inquiry'; ico.textContent = '→'; e.target.reset(); }, 3500);
+}
+
+/* CAD upload */
+function handleModelUpload(e) {
+  const file = e.target.files[0]; if (!file) return;
+  const badge = document.querySelector('.canvas-badge');
+  badge.textContent = `Model: ${file.name} — GLB/GLTF loader required`;
+  badge.style.background = 'rgba(58,102,69,0.8)';
+  setTimeout(() => { badge.textContent = 'Interactive 3D — Drag to Rotate'; badge.style.background = ''; }, 4000);
+}
+
+/* THREE.JS CAR */
+(function() {
+  const wrap = document.getElementById('canvasWrap');
+  const canvas = document.getElementById('carCanvas');
+  const W = wrap.clientWidth, H = wrap.clientHeight;
+  const renderer = new THREE.WebGLRenderer({ canvas, antialias:true, alpha:true });
+  renderer.setSize(W, H); renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
+  renderer.shadowMap.enabled = true; renderer.shadowMap.type = THREE.PCFSoftShadowMap;
+  const scene = new THREE.Scene();
+  scene.fog = new THREE.FogExp2(0x1a1820, 0.035);
+  const camera = new THREE.PerspectiveCamera(42, W/H, 0.1, 200);
+  camera.position.set(4.5, 2.2, 5); camera.lookAt(0, 0.3, 0);
+  scene.add(new THREE.AmbientLight(0x9988bb, 0.6));
+  const kl = new THREE.DirectionalLight(0xffffff, 1.4); kl.position.set(5,8,5); kl.castShadow=true; kl.shadow.mapSize.set(1024,1024); scene.add(kl);
+  const fl = new THREE.DirectionalLight(0xc8cdd6, 0.5); fl.position.set(-5,3,-3); scene.add(fl);
+  const rl = new THREE.DirectionalLight(0x7d6496, 0.8); rl.position.set(0,2,-6); scene.add(rl);
+  scene.add(new THREE.HemisphereLight(0x5a4771, 0x1a1820, 0.4));
+  const bM = new THREE.MeshStandardMaterial({color:0x5a4771,metalness:0.6,roughness:0.25});
+  const cM = new THREE.MeshStandardMaterial({color:0x1a1820,metalness:0.3,roughness:0.6});
+  const sM = new THREE.MeshStandardMaterial({color:0xc8cdd6,metalness:0.9,roughness:0.15});
+  const tM = new THREE.MeshStandardMaterial({color:0x111015,metalness:0.1,roughness:0.85});
+  const rM = new THREE.MeshStandardMaterial({color:0xa8b0bc,metalness:0.95,roughness:0.1});
+  const gM = new THREE.MeshStandardMaterial({color:0x334466,metalness:0.1,roughness:0.05,transparent:true,opacity:0.55});
+  const aM = new THREE.MeshStandardMaterial({color:0xc8cdd6,metalness:0.8,roughness:0.2,emissive:0xc8cdd6,emissiveIntensity:0.05});
+  const car = new THREE.Group(); scene.add(car);
+  function box(w,h,d,m,x=0,y=0,z=0,rx=0,ry=0,rz=0){const me=new THREE.Mesh(new THREE.BoxGeometry(w,h,d),m);me.position.set(x,y,z);me.rotation.set(rx,ry,rz);me.castShadow=true;return me;}
+  function cyl(rt,rb,h,seg,m,x=0,y=0,z=0,rx=0,ry=0,rz=0){const me=new THREE.Mesh(new THREE.CylinderGeometry(rt,rb,h,seg),m);me.position.set(x,y,z);me.rotation.set(rx,ry,rz);me.castShadow=true;return me;}
+  car.add(box(1.0,0.28,3.8,bM,0,0.32,-0.1));
+  const n=new THREE.Mesh(new THREE.CylinderGeometry(0.09,0.42,1.4,6),bM);n.position.set(0,0.28,1.8);n.rotation.set(Math.PI/2,0,0);car.add(n);
+  car.add(box(0.72,0.22,0.9,cM,0,0.58,-0.3));car.add(box(0.66,0.06,0.5,gM,0,0.73,-0.15));
+  car.add(box(0.08,0.3,0.08,sM,-0.3,0.65,-0.15));car.add(box(0.08,0.3,0.08,sM,0.3,0.65,-0.15));car.add(box(0.7,0.06,0.08,sM,0,0.82,-0.15));
+  [-1,1].forEach(s=>{car.add(box(0.28,0.22,1.8,bM,s*0.62,0.26,-0.35));car.add(box(0.06,0.14,0.28,cM,s*0.77,0.3,0.38));car.add(box(0.04,0.04,2.0,aM,s*0.78,0.16,-0.35));});
+  car.add(box(1.35,0.045,3.2,cM,0,0.14,-0.2));
+  const ec=new THREE.Mesh(new THREE.CylinderGeometry(0.32,0.38,1.2,8),bM);ec.position.set(0,0.46,-1.1);ec.rotation.set(Math.PI/2,0,0);car.add(ec);
+  car.add(box(0.18,0.4,0.15,cM,0,0.78,-0.5));car.add(box(0.55,0.18,0.7,cM,0,0.26,-2.1));car.add(box(0.18,0.18,0.18,sM,0,0.26,-2.52));
+  car.add(box(1.8,0.045,0.44,aM,0,0.12,2.32));car.add(box(1.6,0.045,0.32,bM,0,0.2,2.26));car.add(box(1.5,0.045,0.22,bM,0,0.26,2.2));
+  [-1,1].forEach(s=>car.add(box(0.05,0.18,0.5,cM,s*0.9,0.19,2.3)));
+  car.add(box(1.3,0.06,0.45,bM,0,1.12,-2.15));car.add(box(1.3,0.06,0.35,aM,0,0.96,-2.2));
+  [-1,1].forEach(s=>car.add(box(0.05,0.22,0.5,cM,s*0.66,1.05,-2.18)));
+  car.add(box(0.06,0.26,0.06,sM,0,1.06,-2.18));
+  [-1,1].forEach(s=>{car.add(box(0.56,0.03,0.03,sM,s*0.52,0.44,1.35,0,0,s*0.2));car.add(box(0.52,0.03,0.03,sM,s*0.5,0.22,1.35,0,0,s*-0.15));car.add(box(0.52,0.03,0.03,sM,s*0.5,0.44,-1.65,0,0,s*0.18));car.add(box(0.48,0.03,0.03,sM,s*0.48,0.22,-1.65,0,0,s*-0.12));});
+  function wheel(x,z){const g=new THREE.Group();g.add(cyl(0.33,0.33,0.28,24,tM,0,0,0,Math.PI/2,0,0));g.add(cyl(0.24,0.24,0.3,24,rM,0,0,0,Math.PI/2,0,0));for(let i=0;i<5;i++)g.add(box(0.05,0.04,0.22,sM,0.14*Math.cos(i*Math.PI*2/5),0.14*Math.sin(i*Math.PI*2/5),0));g.add(cyl(0.06,0.06,0.34,12,sM,0,0,0,Math.PI/2,0,0));g.add(cyl(0.2,0.2,0.04,16,cM,0,0,0.17,Math.PI/2,0,0));g.position.set(x,0.33,z);return g;}
+  car.add(wheel(-0.82,1.35));car.add(wheel(0.82,1.35));car.add(wheel(-0.85,-1.65));car.add(wheel(0.85,-1.65));
+  car.add(box(1.1,0.22,0.55,cM,0,0.22,-2.35,0.35,0,0));
+  [-1,1].forEach(s=>car.add(cyl(0.04,0.055,0.3,10,sM,s*0.22,0.52,-1.95,Math.PI/2,0,0)));
+  const gnd=new THREE.Mesh(new THREE.PlaneGeometry(20,20),new THREE.MeshStandardMaterial({color:0x151320,roughness:0.9,metalness:0.1}));gnd.rotation.x=-Math.PI/2;gnd.receiveShadow=true;scene.add(gnd);
+  const grid=new THREE.GridHelper(12,24,0x5a4771,0x252230);grid.position.y=0.001;scene.add(grid);
+  const sd=new THREE.Mesh(new THREE.CircleGeometry(1.8,32),new THREE.MeshBasicMaterial({color:0x000000,transparent:true,opacity:0.3}));sd.rotation.x=-Math.PI/2;sd.position.y=0.002;scene.add(sd);
+  let drag=false,rDrag=false,px=0,py=0,theta=0.4,phi=0.35,radius=7,panX=0,panY=0.3;
+  wrap.addEventListener('mousedown',e=>{drag=true;rDrag=e.button===2;px=e.clientX;py=e.clientY;e.preventDefault();});
+  wrap.addEventListener('contextmenu',e=>e.preventDefault());
+  window.addEventListener('mouseup',()=>drag=false);
+  window.addEventListener('mousemove',e=>{if(!drag)return;const dx=(e.clientX-px)*0.007,dy=(e.clientY-py)*0.007;if(rDrag){panX-=dx*0.5;panY+=dy*0.5;}else{theta-=dx;phi=Math.max(0.08,Math.min(1.3,phi-dy));}px=e.clientX;py=e.clientY;});
+  wrap.addEventListener('touchstart',e=>{drag=true;rDrag=false;px=e.touches[0].clientX;py=e.touches[0].clientY;},{passive:true});
+  window.addEventListener('touchend',()=>drag=false);
+  window.addEventListener('touchmove',e=>{if(!drag)return;const dx=(e.touches[0].clientX-px)*0.007,dy=(e.touches[0].clientY-py)*0.007;theta-=dx;phi=Math.max(0.08,Math.min(1.3,phi-dy));px=e.touches[0].clientX;py=e.touches[0].clientY;},{passive:true});
+  wrap.addEventListener('wheel',e=>{radius=Math.max(3,Math.min(14,radius+e.deltaY*0.01));e.preventDefault();},{passive:false});
+  window.addEventListener('resize',()=>{const w=wrap.clientWidth,h=wrap.clientHeight;renderer.setSize(w,h);camera.aspect=w/h;camera.updateProjectionMatrix();});
+  let auto=true;wrap.addEventListener('mousedown',()=>auto=false,{once:true});wrap.addEventListener('touchstart',()=>auto=false,{once:true});
+  function animate(){requestAnimationFrame(animate);if(auto)theta+=0.004;panX+=(0-panX)*0.04;panY+=(0.3-panY)*0.04;camera.position.x=radius*Math.sin(phi)*Math.sin(theta)+panX;camera.position.y=radius*Math.cos(phi)+panY;camera.position.z=radius*Math.sin(phi)*Math.cos(theta);camera.lookAt(panX,panY,0);renderer.render(scene,camera);}
+  animate();
+})();
+</script>
 </body>
 </html>

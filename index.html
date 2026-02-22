@@ -8,6 +8,7 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,700;0,900;1,700&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
 <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+<script src="https://threejs.org/examples/js/loaders/OBJLoader.js"></script>
 <style>
   :root {
     --purple:       #5a4771;
@@ -415,8 +416,8 @@
   <h2 class="sec-title reveal">Why Sponsor a STEM Racing Team?</h2>
   <p class="sec-body reveal">Our team offers a unique opportunity of national visibility and engagement. Phantom Racing in their first year has qualified for national competition and is building a strong brand presence in the youth motorsport community. We operate as a structured engineering enterprise with CAD/CFD design, CNC manufacturing, professional marketing, and professional presentation. By partnering with us, your company supports the next generation of engineers while building a strong brand presence in the STEM community. Without your support, Phantom Racing will not be able to push the limits and boundaries to reach the international competition.</p>
   <div class="opp-grid">
-    <div class="opp-card highlight reveal"><div class="opp-card-num">20,000+ Audience </div><div class="opp-card-title">Product and Technology Showcase</div><div class="opp-card-body">Sponsoring our team provides the unique oppoirtunity to showcase your company's engineering and innovation capabilities to a highly engaged, tech-savvy audience of students and professionals nation-wide.</div></div>
-    <div class="opp-card reveal"><div class="opp-card-num">3.2×</div><div class="opp-card-title">Higher Talent Pipeline ROI</div><div class="opp-card-body">Studies show engineering sponsors of STEM programs experience 3.2× higher intern-to-hire conversion rates compared to direct recruiting, due to sustained brand immersion throughout the academic calendar.</div></div>
+    <div class="opp-card highlight reveal"><div class="opp-card-num">5,000+ Audience </div><div class="opp-card-title">Product and Technology Showcase</div><div class="opp-card-body">Sponsoring our team provides the unique oppoirtunity to showcase your company's engineering and innovation capabilities to a highly engaged, tech-savvy audience of students and professionals nation-wide.</div></div>
+    <div class="opp-card reveal"><div class="opp-card-num">3.2×</div><div class="opp-card-title">Stronger Brand Engagement</div><div class="opp-card-body">Studies show engineering sponsors of STEM programs experience 3.2× higher brand engagement rates compared to campus outreach programs. Additionally, sponsoring STEM programs increases your company's visibility within the engineering community.</div></div>
     <div class="opp-card reveal"><div class="opp-card-num">72%</div><div class="opp-card-title">of Youth STEM Racing Teams Pursue Eco-Aligned Sponsors </div><div class="opp-card-body">Sustainability is an increasing priority within the F1-related programs, so many STEM Racing teams are now seeking sponsors who align with their environmental values. As an eco-friendly sponsor, your company aligns with a new generation of engineers who value innovation, efficiency, and environmental responsibility.</div></div>
     <div class="opp-card reveal"><div class="opp-card-num">12×</div><div class="opp-card-title">Brand Authority</div><div class="opp-card-body">Partnering with Phantom Racing strengthens your brand authority by showcasing your company alongside innovation, performance, and technical excellence. Through consistent engagement and visibility across multiple platforms, your brand is showcased to industry judges, STEM Educators, young engineers, and others part of a massive national audience.</div></div>
   </div>
@@ -430,24 +431,23 @@
   <div class="viewer-layout">
     <div class="viewer-info reveal">
       <div>
-        <div class="label-row"><div class="label-line"></div><span class="label-text">The Machine</span></div>
-        <h2 class="viewer-title">Built by Engineers.<br>Driven by Data.</h2>
+      <div class="label-row"><div class="label-line"></div><span class="label-text">The Machine</span></div>
+      <h2 class="viewer-title">Built by Engineers.<br>Driven by Data.</h2>
       </div>
       <p class="viewer-desc">Every component of the Phantom Racing vehicle is designed, simulated, and manufactured by student engineers. Our CAD-first development process mirrors industry-standard workflows used at top automotive and aerospace firms — giving sponsors direct visibility into the kind of engineering talent they'll be paterning with.</p>
       <div class="viewer-specs">
-        <div class="spec-row"><span class="spec-key">Chassis</span><span class="spec-val">Custom CNC Polyurethane Foam Frame</span></div>
-        <div class="spec-row"><span class="spec-key">Power Unit</span><span class="spec-val">2 kJ CO2 Canister Power</span></div>
-        <div class="spec-row"><span class="spec-key">Wings</span><span class="spec-val">CFD-optimized aero package with reduced drag</span></div>
-        <div class="spec-row"><span class="spec-key">Sidepods</span><span class="spec-val">Custom concave structure to control airflow</span></div>
-        <div class="spec-row"><span class="spec-key">Weight</span><span class="spec-val">114 grams</span></div>
-        <div class="spec-row"><span class="spec-key">Dimensions</span><span class="spec-val">22.3cm x 6.5 cm x 5.0 cm</span></div>
+      <div class="spec-row"><span class="spec-key">Chassis</span><span class="spec-val">Custom CNC Polyurethane Foam Frame</span></div>
+      <div class="spec-row"><span class="spec-key">Power Unit</span><span class="spec-val">2 kJ CO2 Canister Power</span></div>
+      <div class="spec-row"><span class="spec-key">Wings</span><span class="spec-val">CFD-optimized aero package with reduced drag</span></div>
+      <div class="spec-row"><span class="spec-key">Sidepods</span><span class="spec-val">Custom concave structure to control airflow</span></div>
+      <div class="spec-row"><span class="spec-key">Weight</span><span class="spec-val">114 grams</span></div>
+      <div class="spec-row"><span class="spec-key">Dimensions</span><span class="spec-val">22.3cm x 6.5 cm x 5.0 cm</span></div>
       </div>
       <div>
-        <p style="font-size:0.72rem;font-weight:600;letter-spacing:0.12em;text-transform:uppercase;color:#ff4444;margin-bottom:0.75rem;">Note this is not our official CAD model</p>
-        <!--<label class="upload-cad-btn">
-          <input type="file" accept=".glb,.gltf,.obj" style="display:none" onchange="handleModelUpload(event)">
-          ⬆ Upload CAD / 3D Model (.glb, .gltf, .obj)
-        </label>-->
+      <label class="upload-cad-btn">
+        <input type="file" accept=".glb,.gltf,.obj" style="display:none" onchange="handleModelUpload(event)">
+        ⬆ Upload CAD / 3D Model (.glb, .gltf, .obj)
+      </label>
       </div>
     </div>
     <div class="reveal">
@@ -503,7 +503,7 @@
   <p class="sec-body reveal">Our community impact extends well beyond competition. Phantom Racing runs an active STEM outreach program throughout the academic year, giving sponsors visible association with grassroots engineering education and talent development.</p>
   <div class="stem-grid">
     <div class="stem-card reveal"><div class="stem-icon">🏫</div><h3 class="stem-card-title">School Visits</h3><div class="stem-card-body">Team members visit high schools and hold meetings with hands-on engineering demonstrations, vehicle walkthroughs, and show Formula 1 highlights to building early STEM and Formula 1 interest.</div><div class="stem-stat">3 schools</div></div>
-    <div class="stem-card accent reveal"><div class="stem-icon">🧑‍🔧</div><h3 class="stem-card-title">Students Reached</h3><div class="stem-card-body">Our outreach programming reaches over 2,400 K-12 students annually across in-person visits, virtual sessions, and sponsored STEM challenge events.</div><div class="stem-stat">2,400+ students</div></div>
+    <div class="stem-card accent reveal"><div class="stem-icon">🧑‍🔧</div><h3 class="stem-card-title">Students Reached</h3><div class="stem-card-body">Our outreach programming reaches over 100 K-12 students annually across in-person visits, virtual sessions, and sponsored STEM challenge events.</div><div class="stem-stat">100+ students</div></div>
     <div class="stem-card reveal"><div class="stem-icon">🛠</div><h3 class="stem-card-title">Sponsor-Branded Workshops</h3><div class="stem-card-body">Gold and Platinum sponsors have the opportunity to utilize our community workshop series to integrate your brand directly into our most visible outreach touchpoints with students, parents, and educators.</div><div class="stem-stat"></div></div>
     <div class="stem-card reveal"><div class="stem-icon">🎓</div><h3 class="stem-card-title">University Connections</h3><div class="stem-card-body">Phantom Racing has ties to the University of Washington. UW Formula 1 has helped us throughout the STEM Racing process and as a close affliate, it predicts our sucess to be partnered with such a successful university team. Additionally, this could provide an opportunity to hold events together provided both parties agree.</div><div class="stem-stat"></div></div>
     <div class="stem-card reveal"><div class="stem-icon">📹</div><h3 class="stem-card-title">Digital STEM Content</h3><div class="stem-card-body">Our team produces engineering-focused content series such as build drawings, CFD visualizations, and material analysis that feature sponsor branding and reach an audience of technically engaged viewers online through our LinkedIn newsletter.</div><div class="stem-stat"></div></div>
@@ -674,12 +674,12 @@
   <div class="sp-tier-block reveal">
     <div class="sp-tier-head"><span class="sp-pill spp-bronze">Bronze Partners</span><div class="sp-hr"></div></div>
     <div class="sp-grid bronze">
-      <div class="sp-card"><div class="sp-card-inner"><img src="https://templates.ansys.com/dev/_static/ansys_logo_black_cropped.jpg" style="width:100%;height:46px;object-fit:contain;" alt="Ansys"><span class="sp-name"></span><span class="sp-industry">Simulation Software</span></div></div>
-      <div class="sp-card"><div class="sp-card-inner"><img src="https://ditoweb.com/wp-content/uploads/2020/10/Custom-Ink-Logo.png" style="width:100%;height:46px;object-fit:contain;" alt="Ember Wear"><span class="sp-name"></span><span class="sp-industry">Team Apparel</span></div></div>
+      <div class="sp-card"><div class="sp-card-inner"><a href="https://www.ansys.com" target="_blank" style="display:flex;align-items:center;justify-content:center;width:100%;height:46px;text-decoration:none;"><img src="https://templates.ansys.com/dev/_static/ansys_logo_black_cropped.jpg" style="width:100%;height:46px;object-fit:contain;" alt="Ansys"></a><span class="sp-name"></span><span class="sp-industry">Simulation Software</span></div></div>
+      <div class="sp-card"><div class="sp-card-inner"><a href="https://www.customink.com" target="_blank" style="display:flex;align-items:center;justify-content:center;width:100%;height:46px;text-decoration:none;"><img src="https://ditoweb.com/wp-content/uploads/2020/10/Custom-Ink-Logo.png" style="width:100%;height:46px;object-fit:contain;" alt="Custom Ink"></a><span class="sp-name"></span><span class="sp-industry">Team Apparel</span></div></div>
       <!--<div class="sp-card"><div class="sp-card-inner"><div class="sp-logo">Logo</div><span class="sp-name">Grove Media</span><span class="sp-industry">Photography</span></div></div>
       <div class="sp-card"><div class="sp-card-inner"><div class="sp-logo">Logo</div><span class="sp-name">Kite Print</span><span class="sp-industry">Print &amp; Livery</span></div></div> -->
-      <div class="sp-card"><div class="sp-card-inner"><img src="https://www.f1bearings.com/cdn/shop/files/uZeN9djc_4x_20cd089a-0fa9-4127-82b7-39de0b3c15c9.jpg?v=1667842396" style="width:100%;height:46px;object-fit:contain;" alt="F1 Bearings"><span class="sp-name"></span><span class="sp-industry">STEM Racing Consumables</span></div></div>
-      <div class="sp-card"><div class="sp-card-inner"><img src="https://www.makera.com/cdn/shop/files/logo_1_300x.png?v=1663985979" style="width:100%;height:46px;object-fit:contain;" alt="Carvera"><span class="sp-name"></span><span class="sp-industry">CNC Machines and Software</span></div></div>
+      <div class="sp-card"><div class="sp-card-inner"><a href="https://www.f1bearings.com" target="_blank" style="display:flex;align-items:center;justify-content:center;width:100%;height:46px;text-decoration:none;"><img src="https://www.f1bearings.com/cdn/shop/files/uZeN9djc_4x_20cd089a-0fa9-4127-82b7-39de0b3c15c9.jpg?v=1667842396" style="width:100%;height:46px;object-fit:contain;" alt="F1 Bearings"></a><span class="sp-name"></span><span class="sp-industry">STEM Racing Consumables</span></div></div>
+      <div class="sp-card"><div class="sp-card-inner"><a href="https://www.makera.com" target="_blank" style="display:flex;align-items:center;justify-content:center;width:100%;height:46px;text-decoration:none;"><img src="https://www.makera.com/cdn/shop/files/logo_1_300x.png?v=1663985979" style="width:100%;height:46px;object-fit:contain;" alt="Makera"></a><span class="sp-name"></span><span class="sp-industry">CNC Machines and Software</span></div></div>
     </div>
   </div>
 </section>
@@ -838,15 +838,105 @@ function handleSubmit(e) {
   setTimeout(() => { btn.style.background = ''; txt.textContent = 'Send Inquiry'; ico.textContent = '→'; }, 3500);
 }
 
-/* CAD upload */
-function handleModelUpload(e) {
-  const file = e.target.files[0]; if (!file) return;
-  const badge = document.querySelector('.canvas-badge');
-  badge.textContent = `Model: ${file.name} — GLB/GLTF loader required`;
-  badge.style.background = 'rgba(58,102,69,0.8)';
-  setTimeout(() => { badge.textContent = 'Interactive 3D — Drag to Rotate'; badge.style.background = ''; }, 4000);
-}
+/* ── OBJ LOADER (self-contained, no external dep) ── */
+THREE.OBJLoader = function(manager) {
+  this.manager = manager || THREE.DefaultLoadingManager;
+};
+THREE.OBJLoader.prototype = {
+  constructor: THREE.OBJLoader,
+  load: function(url, onLoad, onProgress, onError) {
+    var scope = this;
+    var loader = new THREE.FileLoader(scope.manager);
+    loader.load(url, function(text) { onLoad(scope.parse(text)); }, onProgress, onError);
+  },
+  parse: function(text) {
+    var object = new THREE.Group();
+    var geometry = new THREE.BufferGeometry();
+    var vertices = [], normals = [], uvs = [];
+    var posArr = [], normArr = [], uvArr = [];
+    var lines = text.split('\n');
+    for (var i = 0; i < lines.length; i++) {
+      var line = lines[i].trim();
+      if (!line || line[0] === '#') continue;
+      var parts = line.split(/\s+/);
+      var cmd = parts[0];
+      if (cmd === 'v') {
+        vertices.push(parseFloat(parts[1]), parseFloat(parts[2]), parseFloat(parts[3]));
+      } else if (cmd === 'vn') {
+        normals.push(parseFloat(parts[1]), parseFloat(parts[2]), parseFloat(parts[3]));
+      } else if (cmd === 'vt') {
+        uvs.push(parseFloat(parts[1]), parseFloat(parts[2]));
+      } else if (cmd === 'f') {
+        var faceVerts = parts.slice(1);
+        for (var t = 1; t < faceVerts.length - 1; t++) {
+          [faceVerts[0], faceVerts[t], faceVerts[t+1]].forEach(function(v) {
+            var idx = v.split('/');
+            var vi = (parseInt(idx[0]) - 1) * 3;
+            posArr.push(vertices[vi], vertices[vi+1], vertices[vi+2]);
+            if (idx[2] && normals.length) {
+              var ni = (parseInt(idx[2]) - 1) * 3;
+              normArr.push(normals[ni], normals[ni+1], normals[ni+2]);
+            }
+            if (idx[1] && uvs.length) {
+              var ui = (parseInt(idx[1]) - 1) * 2;
+              uvArr.push(uvs[ui], uvs[ui+1]);
+            }
+          });
+        }
+      }
+    }
+    geometry.setAttribute('position', new THREE.Float32BufferAttribute(posArr, 3));
+    if (normArr.length) geometry.setAttribute('normal', new THREE.Float32BufferAttribute(normArr, 3));
+    else geometry.computeVertexNormals();
+    if (uvArr.length) geometry.setAttribute('uv', new THREE.Float32BufferAttribute(uvArr, 2));
+    var mesh = new THREE.Mesh(geometry, new THREE.MeshStandardMaterial({color:0x5a4771,metalness:0.6,roughness:0.25}));
+    object.add(mesh);
+    return object;
+  }
+};
 
+/* CAD upload — replaces placeholder car with uploaded .obj */
+function handleModelUpload(e) {
+  var file = e.target.files[0]; if (!file) return;
+  var badge = document.querySelector('.canvas-badge');
+  badge.textContent = 'Loading model…';
+  badge.style.background = 'rgba(90,71,113,0.85)';
+  var url = URL.createObjectURL(file);
+  var loader = new THREE.OBJLoader();
+  loader.load(url, function(obj) {
+    if (window._phantomCar) window._phantomScene.remove(window._phantomCar);
+    var box3 = new THREE.Box3().setFromObject(obj);
+    var centre = box3.getCenter(new THREE.Vector3());
+    var size   = box3.getSize(new THREE.Vector3());
+    var maxDim = Math.max(size.x, size.y, size.z);
+    var scale  = 4 / maxDim;
+    obj.scale.setScalar(scale);
+    obj.position.sub(centre.multiplyScalar(scale));
+    obj.position.y -= box3.min.y * scale;
+    obj.traverse(function(child) {
+      if (child.isMesh) {
+        child.material = new THREE.MeshStandardMaterial({
+          color: 0x5a4771, metalness: 0.6, roughness: 0.25
+        });
+        child.castShadow = true;
+        child.receiveShadow = true;
+      }
+    });
+    window._phantomScene.add(obj);
+    window._phantomCar = obj;
+    badge.textContent = 'Model loaded — ' + file.name;
+    badge.style.background = 'rgba(40,100,58,0.88)';
+    setTimeout(function() {
+      badge.textContent = 'Interactive 3D — Drag to Rotate';
+      badge.style.background = '';
+    }, 3500);
+    URL.revokeObjectURL(url);
+  }, undefined, function(err) {
+    badge.textContent = 'Error loading model — check console';
+    badge.style.background = 'rgba(140,40,40,0.85)';
+    console.error('OBJ load error:', err);
+  });
+}
 /* THREE.JS CAR */
 (function() {
   const wrap = document.getElementById('canvasWrap');
@@ -872,6 +962,7 @@ function handleModelUpload(e) {
   const gM = new THREE.MeshStandardMaterial({color:0x334466,metalness:0.1,roughness:0.05,transparent:true,opacity:0.55});
   const aM = new THREE.MeshStandardMaterial({color:0xc8cdd6,metalness:0.8,roughness:0.2,emissive:0xc8cdd6,emissiveIntensity:0.05});
   const car = new THREE.Group(); scene.add(car);
+  window._phantomCar = car; window._phantomScene = scene;
   function box(w,h,d,m,x=0,y=0,z=0,rx=0,ry=0,rz=0){const me=new THREE.Mesh(new THREE.BoxGeometry(w,h,d),m);me.position.set(x,y,z);me.rotation.set(rx,ry,rz);me.castShadow=true;return me;}
   function cyl(rt,rb,h,seg,m,x=0,y=0,z=0,rx=0,ry=0,rz=0){const me=new THREE.Mesh(new THREE.CylinderGeometry(rt,rb,h,seg),m);me.position.set(x,y,z);me.rotation.set(rx,ry,rz);me.castShadow=true;return me;}
   car.add(box(1.0,0.28,3.8,bM,0,0.32,-0.1));
